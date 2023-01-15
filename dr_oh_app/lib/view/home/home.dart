@@ -4,14 +4,9 @@ import 'package:dr_oh_app/components/news_api.dart';
 import 'package:dr_oh_app/model/body_info_model.dart';
 import 'package:dr_oh_app/model/name_model.dart';
 import 'package:dr_oh_app/model/news_model.dart';
-import 'package:dr_oh_app/model/user.dart';
-import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:dr_oh_app/view/home/all_checkup_history.dart';
 import 'package:dr_oh_app/view/home/body_info.dart';
 import 'package:dr_oh_app/view/home/checkup_history.dart';
-import 'package:dr_oh_app/view/home/hospital_visit.dart';
-import 'package:dr_oh_app/view/home/medication.dart';
-import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
 import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,7 +29,7 @@ class _HomeState extends State<Home> {
   }
   // News API */
 
-  CheckupHistoryViewModel _checkupHistoryViewModel = CheckupHistoryViewModel();
+  final CheckupHistoryViewModel _checkupHistoryViewModel = CheckupHistoryViewModel();
   late String id = '';
 
   // Desc: shared preferences 받기
@@ -65,31 +60,47 @@ class _HomeState extends State<Home> {
     DateTime selectedDate = DateTime.now();
     return Column(
       children: [
-        Column(
-          children: [
-            SizedBox(
-              height: 300,
-              child: CalendarDatePicker(
-                initialDate: selectedDate,
-                firstDate: DateTime(2000),
-                lastDate: DateTime.now(),
-                onDateChanged: ((value) {
-                  selectedDate = value;
-                }),
+        SizedBox(
+          height: 220,
+          child: CalendarDatePicker(
+            initialDate: selectedDate,
+            firstDate: DateTime(2000),
+            lastDate: DateTime.now(),
+            onDateChanged: ((value) {
+              selectedDate = value;
+            }),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: ElevatedButton(
+            onPressed: () {
+              Get.to(
+                () => CheckupHistory(),
+                arguments: selectedDate,
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
-          ],
-        ),
-        ElevatedButton(
-          onPressed: () {
-            Get.to(
-              () => CheckupHistory(),
-              arguments: selectedDate,
-            );
-          },
-          child: const Text(
-            '검진기록 조회',
-            style: TextStyle(color: Colors.white),
+            child: SizedBox(
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    '검진기록 조회',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         )
       ],
@@ -101,18 +112,18 @@ class _HomeState extends State<Home> {
   BoxDecoration _borderBox() {
     return BoxDecoration(
       border: Border.all(
-        style: BorderStyle.solid,
-        width: 1,
+        style: BorderStyle.none,
+        width: 0.5,
       ),
-      borderRadius: BorderRadius.circular(5),
-      color: Colors.white,
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.5),
-          spreadRadius: 1,
-          blurRadius: 1,
-        ),
-      ],
+      borderRadius: BorderRadius.circular(12),
+      color: const Color(0xFFAECCD6),
+      // boxShadow: [
+      //   BoxShadow(
+      //     color: Colors.grey.withOpacity(0.5),
+      //     spreadRadius: 1,
+      //     blurRadius: 1,
+      //   ),
+      // ],
     );
   }
 
@@ -125,31 +136,28 @@ class _HomeState extends State<Home> {
   // Desc: 각 박스 타이틀
   // Date: 2023-01-09
   Widget _head(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 22),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: const Color(0xFF99CD89),
-        ),
-        width: Get.width,
-        height: 30,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: const Color(0xFF99CD89),
+      ),
+      width: Get.width,
+      height: 40,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                // color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -161,9 +169,27 @@ class _HomeState extends State<Home> {
       onPressed: () {
         Get.to(path);
       },
-      child: Text(
-        title,
-        style: const TextStyle(color: Colors.white),
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        // backgroundColor: Colors.
+      ),
+      child: SizedBox(
+        height: 40,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                // color: Colors.white,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -244,10 +270,13 @@ class _HomeState extends State<Home> {
   // Date: 2023-01-10
   Widget _getName(DocumentSnapshot doc) {
     final user = NameModel(name: doc['name']);
-    return ListTile(
-        title: Text(
-      '${user.name}님 건강한 하루 되세요',
-    ));
+    return Text(
+      '${user.name}님 건강한 하루 되세요!',
+      style: const TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+    );
   }
 
   // Desc: 신체정보 받아오기
@@ -260,28 +289,34 @@ class _HomeState extends State<Home> {
             weight: doc['weight'],
           )
         : BodyInfoModel(id: '', height: '', weight: '');
-    return ListTile(
-      title: bodyinfo.height.toString().isNotEmpty
-          ? Column(
+    return SizedBox(
+      child: bodyinfo.height.toString().isNotEmpty
+          ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    '키 : ${bodyinfo.height}cm',
-                    style: const TextStyle(
-                      fontSize: 28,
-                    ),
+                const Text(
+                  '   신체정보',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    '몸무게 : ${bodyinfo.weight}kg',
-                    style: const TextStyle(
-                      fontSize: 28,
-                    ),
+                Text(
+                  '키(${bodyinfo.height}cm), 몸무게(${bodyinfo.weight}kg)',
+                  style: const TextStyle(
+                    fontSize: 16,
                   ),
                 ),
+                IconButton(
+                  onPressed: () => Get.to(const BodyInfo()),
+                  icon: const Icon(Icons.edit),
+                ),
+                // Text(
+                //   '몸무게 : ${bodyinfo.weight}kg',
+                //   style: const TextStyle(
+                //     fontSize: 20,
+                //   ),
+                // ),
               ],
             )
           : Column(
@@ -289,8 +324,8 @@ class _HomeState extends State<Home> {
                 Text(
                   '입력된 신체정보가 없습니다.',
                   style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    // fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
@@ -308,193 +343,282 @@ class _HomeState extends State<Home> {
         actions: const [LogoutBtn()],
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 12),
-              Container(
-                decoration: _borderBox(),
-                width: 350,
-                padding: const EdgeInsets.only(left: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      height: 60,
-                      width: 300,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('users')
-                            .where('id', isEqualTo: id)
-                            .snapshots(),
-                        builder: ((context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                          final documents = snapshot.data!.docs;
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: _borderBox(),
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 32,
+                          width: 240,
+                          child: StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance
+                                .collection('users')
+                                .where('id', isEqualTo: id)
+                                .snapshots(),
+                            builder: ((context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                              final documents = snapshot.data!.docs;
 
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ListView(
+                              return ListView(
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 children:
                                     documents.map((e) => _getName(e)).toList(),
-                              ),
-                            ],
-                          );
-                        }),
-                      ),
-                    ),
-                    Expanded(
-                      child: SizedBox(
-                        height: 30,
-                        width: 20,
-                        child: IconButton(
-                          onPressed: () async {
-                            UserRepository usrr = UserRepository();
-                            UserModel user = await usrr.getUserInfo();
-                            Get.to(EditMemberInfo(user: user));
-                          },
-                          icon: const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
+                              );
+                            }),
                           ),
                         ),
-                      ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                                Icons.keyboard_double_arrow_down_rounded),
+                            Text(
+                              ' 진단하러 가기 ',
+                              style: TextStyle(
+                                  color: Colors.grey[800],
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const Icon(
+                                Icons.keyboard_double_arrow_down_rounded),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        // Expanded(
+                        //   child: SizedBox(
+                        //     height: 30,
+                        //     width: 20,
+                        //     child: IconButton(
+                        //       onPressed: () async {
+                        //         UserRepository usrr = UserRepository();
+                        //         UserModel user = await usrr.getUserInfo();
+                        //         Get.to(EditMemberInfo(user: user));
+                        //       },
+                        //       icon: const Icon(
+                        //         Icons.arrow_forward_ios,
+                        //         size: 15,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Image.asset('images/diabetes.png'),
+                            Image.asset('images/stroke.png'),
+                            Image.asset('images/dementia.png'),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        )
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              _sizedBox(),
-              Container(
-                decoration: _borderBox(),
-                height: 40,
-                width: 350,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    StreamBuilder(
-                      stream: _checkupHistoryViewModel.stream,
-                      builder: (context, snapshot) {
-                        return Text(
-                          '마지막 검진일은 ${_checkupHistoryViewModel.date.toString().substring(0, 10)} 입니다.',
-                          style: const TextStyle(fontSize: 14),
-                        );
-                      },
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          Get.to(const AllCheckupHistory());
+                _sizedBox(),
+                Container(
+                  decoration: _borderBox(),
+                  // height: 40,
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      StreamBuilder(
+                        stream: _checkupHistoryViewModel.stream,
+                        builder: (context, snapshot) {
+                          return Text(
+                            '마지막 검진일: ${_checkupHistoryViewModel.date.toString().substring(0, 10)}',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          );
                         },
-                        child: const Text('전체기록 보기')),
-                  ],
-                ),
-              ),
-              _sizedBox(),
-              Container(
-                decoration: _borderBox(),
-                width: 350,
-                child: _calendar(),
-              ),
-              _sizedBox(),
-              _head('신체정보'),
-              const SizedBox(height: 3),
-              Container(
-                decoration: _borderBox(),
-                height: 200,
-                width: 350,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 100,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('users')
-                            .where('id', isEqualTo: id)
-                            .snapshots(),
-                        builder: ((context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                          final documents = snapshot.data!.docs;
-
-                          return ListView(
-                            physics: const NeverScrollableScrollPhysics(),
-                            children:
-                                documents.map((e) => _getBodyinfo(e)).toList(),
-                          );
-                        }),
                       ),
-                    ),
-                    _button(const BodyInfo(), '입력하러 가기'),
-                  ],
+                      TextButton(
+                          onPressed: () {
+                            Get.to(const AllCheckupHistory());
+                          },
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.indigo,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.keyboard_double_arrow_right_rounded),
+                              Text(
+                                ' 전체기록 보기 ',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Icon(Icons.keyboard_double_arrow_left_rounded),
+                            ],
+                          )),
+                    ],
+                  ),
                 ),
-              ),
-              _sizedBox(),
-              _head('이력조회'),
-              const SizedBox(height: 3),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    decoration: _borderBox(),
-                    width: 165,
-                    child: Column(
-                      children: [
-                        const Text(
-                          '최근 내원이력',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                _sizedBox(),
+                Container(
+                  decoration: _borderBox(),
+                  width: double.infinity,
+                  child: _calendar(),
+                ),
+                _sizedBox(),
+                // _head('신체정보'),
+                Container(
+                  decoration: _borderBox(),
+                  // height: 120,
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Padding(
+                      //   padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       const Text(
+                      //         '신체정보',
+                      //         style: TextStyle(
+                      //           fontSize: 20,
+                      //           fontWeight: FontWeight.bold,
+                      //         ),
+                      //       ),
+                      //       IconButton(
+                      //         onPressed: () => Get.to(const BodyInfo()),
+                      //         icon: const Icon(Icons.edit),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 4,
+                      // ),
+                      SizedBox(
+                        height: 40,
+                        child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('users')
+                              .where('id', isEqualTo: id)
+                              .snapshots(),
+                          builder: ((context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            final documents = snapshot.data!.docs;
+
+                            return ListView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              children: documents
+                                  .map((e) => _getBodyinfo(e))
+                                  .toList(),
+                            );
+                          }),
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Get.to(HospitalVisit());
-                          },
-                          child: const Text(
-                            '조회',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      )
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(
+                      //     horizontal: 4,
+                      //   ),
+                      //   child: _button(
+                      //     const BodyInfo(),
+                      //     '입력 / 수정',
+                      //   ),
+                      // ),
+                    ],
                   ),
-                  Container(
-                    decoration: _borderBox(),
-                    width: 165,
-                    child: Column(
-                      children: [
-                        const Text(
-                          '최근 투약이력',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Get.to(const Medication());
-                          },
-                          child: const Text(
-                            '조회',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              _sizedBox(),
-              _head('뉴스'),
-              const SizedBox(
-                height: 3,
-              ),
-              _news(),
-            ],
+                ),
+                // _sizedBox(),
+                // _head('이력조회'),
+                // const SizedBox(
+                //   height: 3,
+                // ),
+                // SizedBox(
+                //   width: double.infinity,
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //     children: [
+                //       Container(
+                //         decoration: _borderBox(),
+                //         width: 165,
+                //         child: Column(
+                //           children: [
+                //             const Text(
+                //               '최근 내원이력',
+                //               style: TextStyle(fontWeight: FontWeight.bold),
+                //             ),
+                //             ElevatedButton(
+                //               onPressed: () {
+                //                 Get.to(HospitalVisit());
+                //               },
+                //               child: const Text(
+                //                 '조회',
+                //                 style: TextStyle(color: Colors.white),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //       Container(
+                //         decoration: _borderBox(),
+                //         width: 165,
+                //         child: Column(
+                //           children: [
+                //             const Text(
+                //               '최근 투약이력',
+                //               style: TextStyle(fontWeight: FontWeight.bold),
+                //             ),
+                //             ElevatedButton(
+                //               onPressed: () {
+                //                 Get.to(const Medication());
+                //               },
+                //               child: const Text(
+                //                 '조회',
+                //                 style: TextStyle(color: Colors.white),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // _sizedBox(),
+                // _head('뉴스'),
+                // const SizedBox(
+                //   height: 3,
+                // ),
+                // _news(),
+              ],
+            ),
           ),
         ),
       ),

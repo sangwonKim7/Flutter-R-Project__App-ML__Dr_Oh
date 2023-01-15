@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         // ColorService.createMaterialColor(const Color(0xFF99CD89)),
         primaryColorDark: const Color.fromRGBO(42, 47, 73, 1),
         // primaryColorDark: const Color(0xFF5B9D46),
-        primaryColorLight: const Color.fromARGB(255, 147, 209, 230),
+        primaryColorLight: const Color(0xFFAECCD6),
         // Date: 2023-01-07, SangwonKim
         // Desc: app바 테마 설정
         appBarTheme: AppBarTheme(

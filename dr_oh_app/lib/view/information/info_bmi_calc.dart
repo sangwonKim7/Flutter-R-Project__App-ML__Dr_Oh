@@ -74,17 +74,17 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                           const Text(
                             '나이',
                             style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                                fontSize: 28, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
-                            height: 12,
+                            height: 8,
                           ),
                           Text(
                             numAge.toString(),
                             style: const TextStyle(fontSize: 80),
                           ),
                           const SizedBox(
-                            height: 12,
+                            height: 8,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -143,17 +143,17 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                           const Text(
                             '몸무게',
                             style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                                fontSize: 28, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
-                            height: 12,
+                            height: 8,
                           ),
                           Text(
                             numWeight.toString(),
                             style: const TextStyle(fontSize: 80),
                           ),
                           const SizedBox(
-                            height: 12,
+                            height: 8,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -214,7 +214,7 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                     const Text(
                       '키',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 4,
@@ -254,15 +254,15 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 20,
+                      height: 16,
                     ),
                     const Text(
                       '성별',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
-                      height: 12,
+                      height: 8,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -273,11 +273,11 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                         const Text(
                           '남성',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                              fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                         Switch(
                           value: switchGender,
-                          activeColor: const Color.fromARGB(255, 211, 89, 67),
+                          activeColor: Colors.transparent,
                           onChanged: (value) {
                             onClickedGender();
                           },
@@ -285,7 +285,7 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                         const Text(
                           '여성',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                              fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(
                           width: 16,
@@ -319,9 +319,10 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
                       Text(
                         '계산',
                         style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 2),
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                        ),
                       ),
                     ],
                   ),
@@ -343,12 +344,9 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
     String date = DateTime.now().toString().substring(0, 10);
 
     // Stroke 데이타 업데이트하기
-    FirebaseFirestore.instance.collection('result').add({
-      'result': result,
-      'userid': id,
-      'date': date,
-      'category': 'BMI'
-    });
+    FirebaseFirestore.instance
+        .collection('result')
+        .add({'result': result, 'userid': id, 'date': date, 'category': 'BMI'});
   }
 
   // --------------------------------------------------------------------
