@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/components/news_api.dart';
 import 'package:dr_oh_app/model/body_info_model.dart';
@@ -305,6 +306,7 @@ class _HomeState extends State<Home> {
                   '키(${bodyinfo.height}cm), 몸무게(${bodyinfo.weight}kg)',
                   style: const TextStyle(
                     fontSize: 16,
+                    fontWeight: FontWeight.bold
                   ),
                 ),
                 IconButton(
@@ -336,189 +338,30 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text('HOME'),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: _borderBox(),
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 32,
-                          width: 240,
-                          child: StreamBuilder<QuerySnapshot>(
-                            stream: FirebaseFirestore.instance
-                                .collection('users')
-                                .where('id', isEqualTo: id)
-                                .snapshots(),
-                            builder: ((context, snapshot) {
-                              if (!snapshot.hasData) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-                              final documents = snapshot.data!.docs;
-
-                              return ListView(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                children:
-                                    documents.map((e) => _getName(e)).toList(),
-                              );
-                            }),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                                Icons.keyboard_double_arrow_down_rounded),
-                            Text(
-                              ' 진단하러 가기 ',
-                              style: TextStyle(
-                                  color: Colors.grey[800],
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            const Icon(
-                                Icons.keyboard_double_arrow_down_rounded),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        // Expanded(
-                        //   child: SizedBox(
-                        //     height: 30,
-                        //     width: 20,
-                        //     child: IconButton(
-                        //       onPressed: () async {
-                        //         UserRepository usrr = UserRepository();
-                        //         UserModel user = await usrr.getUserInfo();
-                        //         Get.to(EditMemberInfo(user: user));
-                        //       },
-                        //       icon: const Icon(
-                        //         Icons.arrow_forward_ios,
-                        //         size: 15,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Image.asset('images/diabetes.png'),
-                            Image.asset('images/stroke.png'),
-                            Image.asset('images/dementia.png'),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                _sizedBox(),
-                Container(
-                  decoration: _borderBox(),
-                  // height: 40,
-                  width: double.infinity,
+      // resizeToAvoidBottomInset: false,
+      appBar: CustomAppBar(appBar: AppBar(), title: 'title'),
+      // appBar: AppBar(
+      //   title: const Text('HOME'),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                decoration: _borderBox(),
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      StreamBuilder(
-                        stream: _checkupHistoryViewModel.stream,
-                        builder: (context, snapshot) {
-                          return Text(
-                            '마지막 검진일: ${_checkupHistoryViewModel.date.toString().substring(0, 10)}',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          );
-                        },
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Get.to(const AllCheckupHistory());
-                          },
-                          style: TextButton.styleFrom(
-                            foregroundColor: Colors.indigo,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.keyboard_double_arrow_right_rounded),
-                              Text(
-                                ' 전체기록 보기 ',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Icon(Icons.keyboard_double_arrow_left_rounded),
-                            ],
-                          )),
-                    ],
-                  ),
-                ),
-                _sizedBox(),
-                Container(
-                  decoration: _borderBox(),
-                  width: double.infinity,
-                  child: _calendar(),
-                ),
-                _sizedBox(),
-                // _head('신체정보'),
-                Container(
-                  decoration: _borderBox(),
-                  // height: 120,
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Padding(
-                      //   padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //     children: [
-                      //       const Text(
-                      //         '신체정보',
-                      //         style: TextStyle(
-                      //           fontSize: 20,
-                      //           fontWeight: FontWeight.bold,
-                      //         ),
-                      //       ),
-                      //       IconButton(
-                      //         onPressed: () => Get.to(const BodyInfo()),
-                      //         icon: const Icon(Icons.edit),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      // const SizedBox(
-                      //   height: 4,
-                      // ),
                       SizedBox(
-                        height: 40,
+                        height: 32,
+                        width: 240,
                         child: StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance
                               .collection('users')
@@ -534,91 +377,249 @@ class _HomeState extends State<Home> {
 
                             return ListView(
                               physics: const NeverScrollableScrollPhysics(),
-                              children: documents
-                                  .map((e) => _getBodyinfo(e))
-                                  .toList(),
+                              shrinkWrap: true,
+                              children:
+                                  documents.map((e) => _getName(e)).toList(),
                             );
                           }),
                         ),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                              Icons.keyboard_double_arrow_down_rounded),
+                          Text(
+                            ' 진단하러 가기 ',
+                            style: TextStyle(
+                                color: Colors.grey[800],
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const Icon(
+                              Icons.keyboard_double_arrow_down_rounded),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      // Expanded(
+                      //   child: SizedBox(
+                      //     height: 30,
+                      //     width: 20,
+                      //     child: IconButton(
+                      //       onPressed: () async {
+                      //         UserRepository usrr = UserRepository();
+                      //         UserModel user = await usrr.getUserInfo();
+                      //         Get.to(EditMemberInfo(user: user));
+                      //       },
+                      //       icon: const Icon(
+                      //         Icons.arrow_forward_ios,
+                      //         size: 15,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image.asset('images/diabetes.png'),
+                          Image.asset('images/stroke.png'),
+                          Image.asset('images/dementia.png'),
+                        ],
+                      ),
                       const SizedBox(
                         height: 8,
                       )
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(
-                      //     horizontal: 4,
-                      //   ),
-                      //   child: _button(
-                      //     const BodyInfo(),
-                      //     '입력 / 수정',
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),
-                // _sizedBox(),
-                // _head('이력조회'),
-                // const SizedBox(
-                //   height: 3,
-                // ),
-                // SizedBox(
-                //   width: double.infinity,
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //     children: [
-                //       Container(
-                //         decoration: _borderBox(),
-                //         width: 165,
-                //         child: Column(
-                //           children: [
-                //             const Text(
-                //               '최근 내원이력',
-                //               style: TextStyle(fontWeight: FontWeight.bold),
-                //             ),
-                //             ElevatedButton(
-                //               onPressed: () {
-                //                 Get.to(HospitalVisit());
-                //               },
-                //               child: const Text(
-                //                 '조회',
-                //                 style: TextStyle(color: Colors.white),
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //       Container(
-                //         decoration: _borderBox(),
-                //         width: 165,
-                //         child: Column(
-                //           children: [
-                //             const Text(
-                //               '최근 투약이력',
-                //               style: TextStyle(fontWeight: FontWeight.bold),
-                //             ),
-                //             ElevatedButton(
-                //               onPressed: () {
-                //                 Get.to(const Medication());
-                //               },
-                //               child: const Text(
-                //                 '조회',
-                //                 style: TextStyle(color: Colors.white),
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // _sizedBox(),
-                // _head('뉴스'),
-                // const SizedBox(
-                //   height: 3,
-                // ),
-                // _news(),
-              ],
-            ),
+              ),
+              _sizedBox(),
+              Container(
+                decoration: _borderBox(),
+                // height: 40,
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    StreamBuilder(
+                      stream: _checkupHistoryViewModel.stream,
+                      builder: (context, snapshot) {
+                        return Text(
+                          '마지막 검진일: ${_checkupHistoryViewModel.date.toString().substring(0, 10)}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      },
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Get.to(const AllCheckupHistory());
+                        },
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.indigo,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.keyboard_double_arrow_right_rounded),
+                            Text(
+                              ' 전체기록 보기 ',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Icon(Icons.keyboard_double_arrow_left_rounded),
+                          ],
+                        )),
+                  ],
+                ),
+              ),
+              _sizedBox(),
+              Container(
+                decoration: _borderBox(),
+                width: double.infinity,
+                child: _calendar(),
+              ),
+              _sizedBox(),
+              // _head('신체정보'),
+              Container(
+                decoration: _borderBox(),
+                // height: 120,
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       const Text(
+                    //         '신체정보',
+                    //         style: TextStyle(
+                    //           fontSize: 20,
+                    //           fontWeight: FontWeight.bold,
+                    //         ),
+                    //       ),
+                    //       IconButton(
+                    //         onPressed: () => Get.to(const BodyInfo()),
+                    //         icon: const Icon(Icons.edit),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   height: 4,
+                    // ),
+                    SizedBox(
+                      height: 40,
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('users')
+                            .where('id', isEqualTo: id)
+                            .snapshots(),
+                        builder: ((context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          final documents = snapshot.data!.docs;
+
+                          return ListView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: documents
+                                .map((e) => _getBodyinfo(e))
+                                .toList(),
+                          );
+                        }),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 4,
+                    )
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(
+                    //     horizontal: 4,
+                    //   ),
+                    //   child: _button(
+                    //     const BodyInfo(),
+                    //     '입력 / 수정',
+                    //   ),
+                    // ),
+                  ],
+                ),
+              ),
+              // _sizedBox(),
+              // _head('이력조회'),
+              // const SizedBox(
+              //   height: 3,
+              // ),
+              // SizedBox(
+              //   width: double.infinity,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //     children: [
+              //       Container(
+              //         decoration: _borderBox(),
+              //         width: 165,
+              //         child: Column(
+              //           children: [
+              //             const Text(
+              //               '최근 내원이력',
+              //               style: TextStyle(fontWeight: FontWeight.bold),
+              //             ),
+              //             ElevatedButton(
+              //               onPressed: () {
+              //                 Get.to(HospitalVisit());
+              //               },
+              //               child: const Text(
+              //                 '조회',
+              //                 style: TextStyle(color: Colors.white),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //       Container(
+              //         decoration: _borderBox(),
+              //         width: 165,
+              //         child: Column(
+              //           children: [
+              //             const Text(
+              //               '최근 투약이력',
+              //               style: TextStyle(fontWeight: FontWeight.bold),
+              //             ),
+              //             ElevatedButton(
+              //               onPressed: () {
+              //                 Get.to(const Medication());
+              //               },
+              //               child: const Text(
+              //                 '조회',
+              //                 style: TextStyle(color: Colors.white),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // _sizedBox(),
+              // _head('뉴스'),
+              // const SizedBox(
+              //   height: 3,
+              // ),
+              // _news(),
+            ],
           ),
         ),
       ),
