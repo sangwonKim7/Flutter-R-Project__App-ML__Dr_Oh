@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/app.dart';
 import 'package:dr_oh_app/view/join.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -103,7 +101,7 @@ class _LoginState extends State<Login> {
         labelText: label,
         labelStyle: const TextStyle(
           color: Colors.black,
-          fontSize: 15,
+          fontSize: 20,
         ),
         filled: true,
         fillColor: Theme.of(context).primaryColorLight,
@@ -127,7 +125,7 @@ class _LoginState extends State<Login> {
         labelText: label,
         labelStyle: const TextStyle(
           color: Colors.black,
-          fontSize: 15,
+          fontSize: 20,
         ),
         filled: true,
         fillColor: Theme.of(context).primaryColorLight,
@@ -159,6 +157,11 @@ class _LoginState extends State<Login> {
     return SizedBox(
       width: Get.width,
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
         onPressed: () {
           AuthController.to.loginIdUser(idCont.text, pwCont.text).then(
             (value) {
@@ -170,7 +173,21 @@ class _LoginState extends State<Login> {
             },
           );
         },
-        child: const Text('로그인'),
+        child: SizedBox(
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text(
+                '로그인',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -191,6 +208,8 @@ class _LoginState extends State<Login> {
           '비밀번호를 잊으셨나요?',
           style: TextStyle(
             color: Colors.blue,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -215,11 +234,11 @@ class _LoginState extends State<Login> {
                   const Text(
                     "Dr. Oh",
                     style: TextStyle(
-                        color: Color(0xFF99CD89),
-                        fontSize: 50,
+                        color: Color(0xFF3A5A65),
+                        fontSize: 80,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: Get.height / 10),
+                  SizedBox(height: Get.height / 12),
                   _idTextField(idCont, '아이디', false),
                   const SizedBox(height: 20),
                   _passwdTextField(pwCont, '비밀번호', !_passwordVisible),
@@ -227,8 +246,11 @@ class _LoginState extends State<Login> {
                   const SizedBox(height: 10),
                   _loginBtn(),
                   const SizedBox(height: 20),
-                  const Text('또는'),
-                  const SizedBox(height: 30),
+                  const Text(
+                    '또는',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 4),
                   TextButton(
                     onPressed: () {
                       signInWithGoogle();
@@ -236,17 +258,19 @@ class _LoginState extends State<Login> {
                     child: const Text(
                       '구글로 계속하기',
                       style: TextStyle(
-                        color: Colors.blue,
-                      ),
+                          color: Colors.blue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 4),
                   // API연동전 임시 Text
                   const Text(
                     '카카오로 계속하기',
                     style: TextStyle(
-                      color: Colors.blue,
-                    ),
+                        color: Colors.blue,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 30),
                   Row(
@@ -255,6 +279,8 @@ class _LoginState extends State<Login> {
                     children: [
                       const Text(
                         '계정이 없으신가요?',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       TextButton(
                         onPressed: () {
@@ -268,8 +294,9 @@ class _LoginState extends State<Login> {
                         child: const Text(
                           '가입하기',
                           style: TextStyle(
-                            color: Colors.blue,
-                          ),
+                              color: Colors.blue,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],

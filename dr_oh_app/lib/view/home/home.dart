@@ -118,7 +118,7 @@ class _HomeState extends State<Home> {
 
   Widget _sizedBox() {
     return const SizedBox(
-      height: 20,
+      height: 10,
     );
   }
 
@@ -312,65 +312,62 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: _borderBox(),
-                  width: 350,
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        height: 60,
-                        width: 300,
-                        child: StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance
-                              .collection('users')
-                              .where('id', isEqualTo: id)
-                              .snapshots(),
-                          builder: ((context, snapshot) {
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                            final documents = snapshot.data!.docs;
-
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ListView(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  children: documents
-                                      .map((e) => _getName(e))
-                                      .toList(),
-                                ),
-                              ],
+              const SizedBox(height: 12),
+              Container(
+                decoration: _borderBox(),
+                width: 350,
+                padding: const EdgeInsets.only(left: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                      height: 60,
+                      width: 300,
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('users')
+                            .where('id', isEqualTo: id)
+                            .snapshots(),
+                        builder: ((context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
                             );
-                          }),
-                        ),
+                          }
+                          final documents = snapshot.data!.docs;
+
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ListView(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                children:
+                                    documents.map((e) => _getName(e)).toList(),
+                              ),
+                            ],
+                          );
+                        }),
                       ),
-                      Expanded(
-                        child: SizedBox(
-                          height: 30,
-                          width: 20,
-                          child: IconButton(
-                            onPressed: () async {
-                              UserRepository usrr = UserRepository();
-                              UserModel user = await usrr.getUserInfo();
-                              Get.to(EditMemberInfo(user: user));
-                            },
-                            icon: const Icon(
-                              Icons.arrow_forward_ios,
-                              size: 15,
-                            ),
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        height: 30,
+                        width: 20,
+                        child: IconButton(
+                          onPressed: () async {
+                            UserRepository usrr = UserRepository();
+                            UserModel user = await usrr.getUserInfo();
+                            Get.to(EditMemberInfo(user: user));
+                          },
+                          icon: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 15,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               _sizedBox(),

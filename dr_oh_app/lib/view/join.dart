@@ -51,7 +51,10 @@ class _JoinState extends State<Join> {
       children: [
         Text(
           txt,
-          style: const TextStyle(fontSize: 17),
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );
@@ -131,11 +134,11 @@ class _JoinState extends State<Join> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _text(txt),
-        const SizedBox(width: 20),
+        const SizedBox(width: 4),
         Column(
           children: [
             SizedBox(
-              width: Get.width / 2.2,
+              width: Get.width / 2.5,
               height: 70,
               child: TextFormField(
                 controller: textEditingController,
@@ -195,6 +198,11 @@ class _JoinState extends State<Join> {
     return SizedBox(
       width: Get.width,
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
         onPressed: () {
           if (_checkBoxValue1) {
             gender = '남자';
@@ -217,7 +225,21 @@ class _JoinState extends State<Join> {
             Navigator.of(context).pop();
           }
         },
-        child: const Text('회원가입'),
+        child: SizedBox(
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text(
+                '회원가입',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -230,7 +252,7 @@ class _JoinState extends State<Join> {
           children: const [
             Text(
               '성별',
-              style: TextStyle(fontSize: 17),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -239,7 +261,10 @@ class _JoinState extends State<Join> {
           children: [
             Row(
               children: [
-                const Text('남자 : '),
+                const Text(
+                  '남자 : ',
+                  style: TextStyle(fontSize: 20),
+                ),
                 Checkbox(
                   value: _checkBoxValue1,
                   onChanged: (value) {
@@ -249,8 +274,11 @@ class _JoinState extends State<Join> {
                     });
                   },
                 ),
-                const SizedBox(width: 35),
-                const Text('여자 : '),
+                const SizedBox(width: 20),
+                const Text(
+                  '여자 : ',
+                  style: TextStyle(fontSize: 20),
+                ),
                 Checkbox(
                   value: _checkBoxValue2,
                   onChanged: (value) {
@@ -275,8 +303,8 @@ class _JoinState extends State<Join> {
         Column(
           children: const [
             Text(
-              '출생연도',
-              style: TextStyle(fontSize: 17),
+              '생년월일',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -292,7 +320,7 @@ class _JoinState extends State<Join> {
                 onTap: showDatePickerPop,
                 validator: (String? value) {
                   if (value!.isEmpty) {
-                    return '출생연도 입력하세요.';
+                    return '생년월일을 입력하세요.';
                   }
                   return null;
                 },
@@ -330,11 +358,11 @@ class _JoinState extends State<Join> {
                       const Text(
                         "Dr. Oh",
                         style: TextStyle(
-                            color: Color(0xFF99CD89),
-                            fontSize: 50,
+                            color: Color(0xFF3A5A65),
+                            fontSize: 60,
                             fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 10),
                       _joinId('아이디', idCont),
                       _joinName('이름', nameCont),
                       _joinPassword('비밀번호', pwCont),
@@ -343,15 +371,16 @@ class _JoinState extends State<Join> {
                       _dateText(),
                       const SizedBox(height: 10),
                       _genderCheckBox(),
-                      const SizedBox(height: 36),
+                      const SizedBox(height: 24),
                       _joinBtn(),
-                      const SizedBox(height: 36),
+                      const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Text(
                             '계정이 있으신가요?',
+                            style: TextStyle(fontSize: 16),
                           ),
                           TextButton(
                             onPressed: () {
@@ -361,6 +390,8 @@ class _JoinState extends State<Join> {
                               '로그인하기',
                               style: TextStyle(
                                 color: Colors.blue,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
                               ),
                             ),
                           ),
@@ -381,9 +412,10 @@ class _JoinState extends State<Join> {
   void showDatePickerPop() {
     Future<DateTime?> selectedDate = showDatePicker(
       context: context,
-      initialDate: DateTime(2022), //초기값
-      firstDate: DateTime(1950), //시작일
+      initialDate: DateTime(1970), //초기값
+      firstDate: DateTime(1940), //시작일
       lastDate: DateTime(2023), //마지막일
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.dark(), //다크 테마
