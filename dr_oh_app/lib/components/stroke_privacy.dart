@@ -17,7 +17,6 @@ class _StrokePrivacyState extends State<StrokePrivacy> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     agreeterm = false;
     agreenotice = false;

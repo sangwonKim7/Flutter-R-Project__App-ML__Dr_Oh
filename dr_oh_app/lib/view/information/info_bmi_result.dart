@@ -1,3 +1,4 @@
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,11 +20,12 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('계산 결과'),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: 'BMI 계산 결과'),
+      // appBar: AppBar(
+      //   title: const Text('계산 결과'),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(

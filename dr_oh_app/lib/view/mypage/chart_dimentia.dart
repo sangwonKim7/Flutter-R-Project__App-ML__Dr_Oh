@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dr_oh_app/components/dementia_answer_list.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
-import 'package:dr_oh_app/model/dementia_chart_message.dart';
-import 'package:dr_oh_app/model/firebase_dementia.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +16,6 @@ class _StrokeChartRecordState extends State<DementiaChartData> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     id = '';
     _initSharedPreferences();
@@ -122,7 +118,6 @@ class _LineChartSample2State extends State<LineChartSample2> {
 
   // @override
   // void initState() {
-  //   // TODO: implement initState
   //   super.initState();
   //   num1 = (double.parse(widget.doc['result'][0]) * 100).round();
   //   numList = [];

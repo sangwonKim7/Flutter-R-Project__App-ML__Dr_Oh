@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/components/line_chart_widget.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/components/stroke_bar_chart_widget.dart';
@@ -28,11 +29,12 @@ class _StrokeChartRecordState extends State<StrokeChartRecord> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('뇌졸중 차트 기록'),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '뇌졸중 차트 기록'),
+      // appBar: AppBar(
+      //   title: const Text('뇌졸중 차트 기록'),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(

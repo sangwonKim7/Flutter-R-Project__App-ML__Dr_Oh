@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/components/dementia_answer_final.dart';
 import 'package:dr_oh_app/components/dementia_answer_list.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
@@ -20,17 +21,18 @@ class _DementiaSurveySecondState extends State<DementiaSurveySecond> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          '치매 검사 문진표',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '치매 진단 문진표'),
+      // appBar: AppBar(
+      //   title: const Text(
+      //     '치매 검사 문진표',
+      //     style: TextStyle(
+      //       fontSize: 20,
+      //       fontWeight: FontWeight.bold,
+      //     ),
+      //   ),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       body: SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.all(20.0),

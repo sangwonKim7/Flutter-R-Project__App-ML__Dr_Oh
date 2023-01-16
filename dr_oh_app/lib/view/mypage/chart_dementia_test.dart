@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ChartTest extends StatefulWidget {
   const ChartTest({super.key});
@@ -20,7 +20,6 @@ class _ChartTestState extends State<ChartTest> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // _initSharedPreferences();
     // _firebase();
@@ -38,9 +37,10 @@ class _ChartTestState extends State<ChartTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('나의 치매 그래프'),
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '치매 그래프'),
+      // appBar: AppBar(
+      //   title: const Text('나의 치매 그래프'),
+      // ),
       body: Center(
         child: Stack(
           children: <Widget>[

@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:dr_oh_app/view/login.dart';
 import 'package:dr_oh_app/viewmodel/auth_controller.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,10 +62,11 @@ class _SignOutState extends State<SignOut> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('회원 탈퇴'),
-        elevation: 0,
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '회원 탈퇴'),
+      // appBar: AppBar(
+      //   title: const Text('회원 탈퇴'),
+      //   elevation: 0,
+      // ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

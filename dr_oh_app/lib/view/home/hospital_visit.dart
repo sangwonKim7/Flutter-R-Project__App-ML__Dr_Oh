@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dr_oh_app/components/logout_btn.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/model/hospital_visit_model.dart';
 import 'package:dr_oh_app/viewmodel/my_history_view_model.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +13,8 @@ class HospitalVisit extends StatefulWidget {
 }
 
 class _HospitalVisitState extends State<HospitalVisit> {
-  TextEditingController _hospitalController = TextEditingController();
-  TextEditingController _dateController = TextEditingController();
+  final TextEditingController _hospitalController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
   int value = 0;
   List<String> purposeGroup = ['진료', '처방', '검진'];
   String selectedPurpose = '진료';
@@ -124,11 +124,12 @@ class _HospitalVisitState extends State<HospitalVisit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('내원이력'),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '내원 이력'),
+      // appBar: AppBar(
+      //   title: const Text('내원이력'),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -1,3 +1,4 @@
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:flutter/material.dart';
@@ -35,11 +36,12 @@ class _BodyInfoState extends State<BodyInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('신체정보 입력'),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '신체정보 입력'),
+      // appBar: AppBar(
+      //   title: const Text('신체정보 입력'),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

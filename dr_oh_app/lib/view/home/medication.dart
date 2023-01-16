@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/model/medication_model.dart';
 import 'package:dr_oh_app/viewmodel/my_history_view_model.dart';
@@ -129,11 +130,12 @@ class _MedicationState extends State<Medication> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('투약이력'),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '투약 이력'),
+      // appBar: AppBar(
+      //   title: const Text('투약이력'),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -339,7 +339,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       // resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(appBar: AppBar(), title: 'title'),
+      appBar: CustomAppBar(appBar: AppBar(), title: '홈'),
       // appBar: AppBar(
       //   title: const Text('HOME'),
       //   elevation: 1,

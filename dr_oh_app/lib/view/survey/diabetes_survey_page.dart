@@ -10,6 +10,8 @@ import 'package:dr_oh_app/view/survey/diabetes_result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../components/custom_app_bar.dart';
+
 //Date: 2023-01-09 anna
 class DiabetesSurveyPage extends StatelessWidget {
   final String surveyName;
@@ -24,11 +26,12 @@ class DiabetesSurveyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(surveyName),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: surveyName),
+      // appBar: AppBar(
+      //   title: Text(surveyName),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       // Date: 2023-01-11, SangwonKim
       // Desc: Padding 추가함
       body: Padding(

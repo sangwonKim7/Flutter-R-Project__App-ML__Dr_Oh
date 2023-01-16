@@ -1,4 +1,4 @@
-import 'package:dr_oh_app/components/logout_btn.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/view/survey/diabetes_survey_page.dart';
 import 'package:dr_oh_app/view/survey/dementia_survey.dart';
 import 'package:dr_oh_app/view/survey/stroke_survey_page.dart';
@@ -11,30 +11,61 @@ class Survey extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('SURVEY'),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '문진'),
+      // appBar: AppBar(
+      //   title: const Text('SURVEY'),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 20,
+            GestureDetector(
+              onTap: () => Get.to(DiabetesSurveyPage(surveyName: '당뇨병 진단')),
+              child: const CircleAvatar(
+                backgroundImage: AssetImage('images/diabetes2.png'),
+                radius: 88,
+              ),
             ),
-            _btn(DiabetesSurveyPage(surveyName: '당뇨병 검사'), '당뇨병 검사 하러가기',
-                context),
-            const SizedBox(
-              height: 20,
-            ),
-            // Date: 2023-01-10, SangwonKim
-            // Desc: 뇌졸중 페이지로 가기
-            _btn(
-                StrokeSurveyPage(surveyName: '뇌졸중 검사'), '뇌졸중 검사 하러가기', context),
-            const SizedBox(
-              height: 20,
-            ),
-            _btn(DementiaSurvey(), '치매 검사 하러가기', context),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () => Get.to(StrokeSurveyPage(surveyName: '뇌졸중 진단')),
+                  child: const CircleAvatar(
+                    backgroundImage: AssetImage('images/stroke2.png'),
+                    radius: 88,
+                  ),
+                ),
+                const SizedBox(
+                  width: 24,
+                ),
+                GestureDetector(
+                  onTap: () => Get.to(DementiaSurvey()),
+                  child: const CircleAvatar(
+                    backgroundImage: AssetImage('images/dementia2.png'),
+                    radius: 88,
+                  ),
+                ),
+              ],
+            )
+            // const SizedBox(
+            //   height: 20,
+            // ),
+            // _btn(DiabetesSurveyPage(surveyName: '당뇨병 검사'), '당뇨병 검사 하러가기',
+            //     context),
+            // const SizedBox(
+            //   height: 20,
+            // ),
+            // // Date: 2023-01-10, SangwonKim
+            // // Desc: 뇌졸중 페이지로 가기
+            // _btn(
+            //     StrokeSurveyPage(surveyName: '뇌졸중 검사'), '뇌졸중 검사 하러가기', context),
+            // const SizedBox(
+            //   height: 20,
+            // ),
+            // _btn(DementiaSurvey(), '치매 검사 하러가기', context),
           ],
         ),
       ),

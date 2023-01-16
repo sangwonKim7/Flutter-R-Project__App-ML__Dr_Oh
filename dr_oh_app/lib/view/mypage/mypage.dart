@@ -1,14 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/model/user.dart';
 import 'package:dr_oh_app/repository/localdata/user_repository.dart';
-
-import 'package:dr_oh_app/view/mypage/chart_dementia_test.dart';
-import 'package:dr_oh_app/view/mypage/chart_diabetes.dart';
-
 import 'package:dr_oh_app/view/mypage/bmi_chart_record.dart';
-
-import 'package:dr_oh_app/view/mypage/chart_dimentia.dart';
 import 'package:dr_oh_app/view/mypage/dementia_chart_record.dart';
 import 'package:dr_oh_app/view/mypage/diabetes_chart_record.dart';
 import 'package:dr_oh_app/view/mypage/edit_member_info.dart';
@@ -288,7 +283,6 @@ class _MyPageState extends State<MyPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _initSharedPreferences();
   }
@@ -296,19 +290,20 @@ class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('MY PAGE'),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '내 정보'),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   title: const Text('MY PAGE'),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 30),
             _head('기본정보'),
             const SizedBox(height: 3),
-            Container(
+            SizedBox(
               height: 200,
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance

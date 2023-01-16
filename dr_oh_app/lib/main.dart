@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         primarySwatch:
             ColorService.createMaterialColor(const Color(0xFF3A5A65)),
         // ColorService.createMaterialColor(const Color(0xFF99CD89)),
-        primaryColorDark: const Color.fromRGBO(42, 47, 73, 1),
+        primaryColorDark: const Color(0xFF2A2F49),
         // primaryColorDark: const Color(0xFF5B9D46),
         primaryColorLight: const Color(0xFFAECCD6),
         // Date: 2023-01-07, SangwonKim
@@ -49,6 +49,11 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           color: Colors.grey[50],
           foregroundColor: Colors.black,
+        ),
+        scaffoldBackgroundColor: Color.fromARGB(255, 224, 226, 227),
+        navigationBarTheme: NavigationBarThemeData(
+          // backgroundColor: Colors.grey[400],
+          indicatorColor: const Color(0xFF3A5A65).withOpacity(0.5)
         ),
       ),
       darkTheme: ThemeData.dark(),

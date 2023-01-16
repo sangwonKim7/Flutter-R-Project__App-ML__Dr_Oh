@@ -21,7 +21,6 @@ class FirstA extends StatefulWidget {
 class _FirstAState extends State<FirstA> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -120,7 +119,6 @@ class ThirdA extends StatefulWidget {
 class _ThirdAState extends State<ThirdA> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -176,7 +174,6 @@ class _FourthAState extends State<FourthA> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     first = false;
     second = false;
@@ -270,7 +267,6 @@ class _FifthAState extends State<FifthA> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     dayCont = TextEditingController();
   }
@@ -286,13 +282,13 @@ class _FifthAState extends State<FifthA> {
             controller: DiabetesMessage.physhealth,
             keyboardType: TextInputType.number,
             onChanged: (value) {
-              if(value.isEmpty){
+              if (value.isEmpty) {
                 setState(() {
-                  DiabetesMessage.isComplete=false;
+                  DiabetesMessage.isComplete = false;
                 });
-              } else{
+              } else {
                 setState(() {
-                  DiabetesMessage.isComplete=true;
+                  DiabetesMessage.isComplete = true;
                 });
               }
             },

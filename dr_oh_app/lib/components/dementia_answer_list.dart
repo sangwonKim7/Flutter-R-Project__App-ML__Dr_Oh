@@ -204,7 +204,6 @@ class _CListState extends State<CList> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     dateController = TextEditingController();
   }
@@ -495,7 +494,6 @@ class _IListState extends State<IList> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     numController = TextEditingController();
   }
@@ -528,7 +526,6 @@ class _JListState extends State<JList> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     numController = TextEditingController();
   }
@@ -574,7 +571,6 @@ class _QListState extends State<QList> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     numController = TextEditingController();
   }
@@ -620,7 +616,6 @@ class _KListState extends State<KList> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     numController = TextEditingController();
   }
@@ -663,7 +658,6 @@ class _LListState extends State<LList> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     numController = TextEditingController();
   }
@@ -830,7 +824,6 @@ class _PListState extends State<PList> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     monthController = TextEditingController();
   }

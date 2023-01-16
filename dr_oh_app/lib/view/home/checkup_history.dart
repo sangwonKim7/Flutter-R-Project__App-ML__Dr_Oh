@@ -33,7 +33,6 @@ class _ListBodyState extends State<ListBody> {
   late String id = '';
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _initSharedPreferences();
   }

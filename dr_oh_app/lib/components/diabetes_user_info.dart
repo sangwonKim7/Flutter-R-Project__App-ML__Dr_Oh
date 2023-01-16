@@ -24,7 +24,6 @@ class _DUserInfoState extends State<DUserInfo> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     ageCont = TextEditingController();
     heightCont = TextEditingController();

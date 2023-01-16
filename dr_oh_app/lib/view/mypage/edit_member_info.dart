@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/app.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/components/message_popup.dart';
 import 'package:dr_oh_app/model/user.dart';
@@ -280,12 +281,13 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('회원정보 수정'),
-          elevation: 1,
-          actions: const [LogoutBtn()],
-        ),
+        appBar: CustomAppBar(appBar: AppBar(), title: '정보 수정'),
+        // appBar: AppBar(
+        //   centerTitle: true,
+        //   title: const Text('회원정보 수정'),
+        //   elevation: 1,
+        //   actions: const [LogoutBtn()],
+        // ),
         body: SingleChildScrollView(
           child: Center(
             child: Column(

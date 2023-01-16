@@ -1,4 +1,5 @@
 import 'package:dr_oh_app/app.dart';
+import 'package:dr_oh_app/custom_nav_bar.dart';
 import 'package:dr_oh_app/view/join.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -166,7 +167,8 @@ class _LoginState extends State<Login> {
           AuthController.to.loginIdUser(idCont.text, pwCont.text).then(
             (value) {
               if (value?.id == idCont.text && value?.password == pwCont.text) {
-                Get.offAll(() => const App());
+                // Get.offAll(() => const App());
+                Get.offAll(() => const CustomNavBar());
               } else {
                 _dialog();
               }

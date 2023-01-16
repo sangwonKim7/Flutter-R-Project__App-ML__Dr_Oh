@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/app.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/components/dementia_bar_chart_widget.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
@@ -52,13 +52,14 @@ class _DementiaResultState extends State<DementiaResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            '치매 예측 결과',
-          ),
-          elevation: 1,
-          actions: const [LogoutBtn()],
-        ),
+        appBar: CustomAppBar(appBar: AppBar(), title: '치매 예측 결과'),
+        // appBar: AppBar(
+        //   title: const Text(
+        //     '치매 예측 결과',
+        //   ),
+        //   elevation: 1,
+        //   actions: const [LogoutBtn()],
+        // ),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
@@ -95,7 +96,6 @@ class _DementiaResultState extends State<DementiaResult> {
                           fontSize: 20,
                         )),
                   ],
-
                 ),
 
                 _graph(),
@@ -106,9 +106,7 @@ class _DementiaResultState extends State<DementiaResult> {
                 const DementiaBarChart(),
 
                 Text(
-
                   '$id님 ${widget.result == '0' ? normalComment : widget.result == '0.5' ? lightComment : abNormalComment}',
-
                   style: const TextStyle(
                     fontSize: 20,
                   ),
@@ -147,8 +145,7 @@ class _DementiaResultState extends State<DementiaResult> {
     });
   } //_initSharedPreferences
 
-
-//subcollection try!!-향후계획 
+//subcollection try!!-향후계획
   // _addAction() async {
   //   String date = DateTime.now().toString().substring(0, 10);
 
@@ -163,7 +160,6 @@ class _DementiaResultState extends State<DementiaResult> {
   //       .collection('dementia_p')
   //       .add({'date': date, 'dementia_p': resultReg1});
   // } // -addAction
-
 
   Widget _graph() {
     return Row(
@@ -215,5 +211,4 @@ class _DementiaResultState extends State<DementiaResult> {
       ],
     );
   }
-
 }

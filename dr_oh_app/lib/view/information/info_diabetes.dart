@@ -1,4 +1,4 @@
-import 'package:dr_oh_app/components/logout_btn.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 // --------------------------------------------------------------------
@@ -10,11 +10,12 @@ class InfoDiabetes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('당뇨병 정보'),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '당뇨병 정보'),
+      // appBar: AppBar(
+      //   title: const Text('당뇨병 정보'),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),

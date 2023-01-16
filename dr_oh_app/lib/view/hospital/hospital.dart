@@ -1,4 +1,4 @@
-import 'package:dr_oh_app/components/logout_btn.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -18,11 +18,12 @@ class _HospitalState extends State<Hospital> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('병원 찾기'),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '병원'),
+      // appBar: AppBar(
+      //   title: const Text('병원 찾기'),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       body: Stack(
         children: const <Widget>[
           SizedBox(

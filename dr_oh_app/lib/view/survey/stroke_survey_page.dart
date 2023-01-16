@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/components/stroke_answer_list.dart';
 import 'package:dr_oh_app/model/stroke_model.dart';
@@ -26,11 +27,12 @@ class StrokeSurveyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(surveyName),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '뇌졸중 진단'),
+      // appBar: AppBar(
+      //   title: Text(surveyName),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: _pages(),

@@ -1,5 +1,6 @@
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
@@ -10,9 +11,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title),
-      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.8),
-      foregroundColor: Colors.white,
+      title: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.3),
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
       elevation: 0,
       centerTitle: true,
       actions: const [LogoutBtn()],
@@ -21,10 +28,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   // @override
   // Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-  
+
   @override
-  Size get preferredSize => Size.fromHeight(appBar.preferredSize.height);
+  Size get preferredSize =>
+      Size.fromHeight(appBar.preferredSize.height / 100 * 80);
 }
+
+
 
 
 

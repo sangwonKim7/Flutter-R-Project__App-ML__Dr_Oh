@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/components/dementia_bar_chart_widget.dart';
 import 'package:dr_oh_app/components/line_chart_widget.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
@@ -29,11 +30,12 @@ class _DementiaChartRecordState extends State<DementiaChartRecord> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('치매 차트 기록'),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '치매 차트 기록'),
+      // appBar: AppBar(
+      //   title: const Text('치매 차트 기록'),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(

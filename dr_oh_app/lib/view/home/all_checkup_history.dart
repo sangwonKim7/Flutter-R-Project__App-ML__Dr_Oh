@@ -1,4 +1,4 @@
-import 'package:dr_oh_app/components/logout_btn.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class AllCheckupHistory extends StatelessWidget {
@@ -7,14 +7,15 @@ class AllCheckupHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('전체 검진기록'),
-        elevation: 1,
-        actions: const [LogoutBtn()],
-      ),
+      appBar: CustomAppBar(appBar: AppBar(), title: '전체 검진기록'),
+      // appBar: AppBar(
+      //   title: const Text('전체 검진기록'),
+      //   elevation: 1,
+      //   actions: const [LogoutBtn()],
+      // ),
       body: Center(
         child: Column(
-          children: [
+          children: const [
             CustomRadio(),
           ],
         ),
@@ -41,7 +42,7 @@ class _CustomRadioState extends State<CustomRadio> {
     return Container(
       height: 50,
       width: 85,
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: OutlinedButton(
         onPressed: () {
           setState(() {

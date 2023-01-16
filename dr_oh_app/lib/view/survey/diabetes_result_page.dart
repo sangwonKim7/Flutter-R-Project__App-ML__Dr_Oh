@@ -1,4 +1,5 @@
 import 'package:dr_oh_app/app.dart';
+import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/components/diabetes_bar_chart_widget.dart';
 import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
@@ -25,13 +26,14 @@ class _DiabetesResultPageState extends State<DiabetesResultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            '당뇨병 예측 결과',
-          ),
-          elevation: 1,
-          actions: const [LogoutBtn()],
-        ),
+        appBar: CustomAppBar(appBar: AppBar(), title: '당뇨병 예측 결과'),
+        // appBar: AppBar(
+        //   title: const Text(
+        //     '당뇨병 예측 결과',
+        //   ),
+        //   elevation: 1,
+        //   actions: const [LogoutBtn()],
+        // ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

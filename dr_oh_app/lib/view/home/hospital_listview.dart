@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/model/hospital_visit_model.dart';
 import 'package:dr_oh_app/viewmodel/my_history_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HospitalListview extends StatefulWidget {
@@ -15,7 +13,7 @@ class HospitalListview extends StatefulWidget {
 
 class _HospitalListviewState extends State<HospitalListview> {
   late String id = '';
-  MyHistoryViewModel _myHistoryViewModel = MyHistoryViewModel();
+  final MyHistoryViewModel _myHistoryViewModel = MyHistoryViewModel();
 
   _initSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
