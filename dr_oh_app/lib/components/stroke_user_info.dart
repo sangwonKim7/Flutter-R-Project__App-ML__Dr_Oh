@@ -28,7 +28,6 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     sexSwitchValue = false;
     ageController = TextEditingController();
@@ -48,6 +47,9 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
+              const SizedBox(
+                height: 20,
+              ),
               const Text(
                 '신체 정보 입력',
                 style: TextStyle(
@@ -55,7 +57,7 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 120),
+              const SizedBox(height: 100),
               // 성별 입력받기
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -88,10 +90,11 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
               ),
               // 출생년도 입력받기
               SizedBox(
-                width: 100,
+                width: 160,
                 child: TextField(
                   controller: ageController,
                   keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
                   onChanged: (value) {
                     if (ageReg.hasMatch(value) &&
                         int.parse(value) <= currentYear) {
@@ -108,19 +111,20 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
                     labelText: ageController.text.trim().isEmpty
                         ? '출생년도 4자리'
                         : correctYear
-                            ? ''
+                            ? '출생년도'
                             : '출생년도를 정확히 입력하세요.',
                   ),
                 ),
               ),
               // 키 입력받기
               SizedBox(
-                width: 100,
+                width: 160,
                 child: TextField(
                   controller: heightController,
                   keyboardType: const TextInputType.numberWithOptions(
                     decimal: true,
                   ),
+                  textAlign: TextAlign.center,
                   decoration: const InputDecoration(
                     labelText: '키(cm)',
                   ),
@@ -139,12 +143,13 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
               ),
               // 몸무게 입력받기
               SizedBox(
-                width: 100,
+                width: 160,
                 child: TextField(
                   controller: weightController,
                   keyboardType: const TextInputType.numberWithOptions(
                     decimal: true,
                   ),
+                  textAlign: TextAlign.center,
                   decoration: const InputDecoration(
                     labelText: '몸무게(kg)',
                   ),
@@ -162,73 +167,93 @@ class _StrokeUserInfoState extends State<StrokeUserInfo> {
                 ),
               ),
               const SizedBox(
-                height: 100,
+                height: 40,
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  final prefs = await SharedPreferences.getInstance();
-                  String id = (prefs.getString('id') ?? "");
-                  var docs1 = await FirebaseFirestore.instance
-                      .collection('users')
-                      .where('id', isEqualTo: id)
-                      .get();
-                  final bodyinfo =
-                      docs1.docs.first.data().toString().contains('height')
-                          ? BodyInfoModel(
-                              id: docs1.docs.first.data()['id'],
-                              height: docs1.docs.first.data()['height'],
-                              weight: docs1.docs.first.data()['weight'],
-                            )
-                          : BodyInfoModel(id: '', height: '', weight: '');
-                  final userage = docs1.docs.first
-                      .data()['birthdate']
-                      .toString()
-                      .substring(0, 4);
-                  final usersex = docs1.docs.first.data()['gender'].toString();
-                  if (bodyinfo.height.toString().isNotEmpty) {
-                    heightController.text = bodyinfo.height.toString();
-                    weightController.text = bodyinfo.weight.toString();
+              SizedBox(
+                height: 48,
+                child: OutlinedButton(
+                  onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    String id = (prefs.getString('id') ?? "");
+                    var docs1 = await FirebaseFirestore.instance
+                        .collection('users')
+                        .where('id', isEqualTo: id)
+                        .get();
+                    final bodyinfo =
+                        docs1.docs.first.data().toString().contains('height')
+                            ? BodyInfoModel(
+                                id: docs1.docs.first.data()['id'],
+                                height: docs1.docs.first.data()['height'],
+                                weight: docs1.docs.first.data()['weight'],
+                              )
+                            : BodyInfoModel(id: '', height: '', weight: '');
+                    final userage = docs1.docs.first
+                        .data()['birthdate']
+                        .toString()
+                        .substring(0, 4);
+                    final usersex =
+                        docs1.docs.first.data()['gender'].toString();
+                    if (bodyinfo.height.toString().isNotEmpty) {
+                      heightController.text = bodyinfo.height.toString();
+                      weightController.text = bodyinfo.weight.toString();
+                      setState(() {
+                        correctHeight = true;
+                        correctWeight = true;
+                      });
+                    }
+                    ageController.text = userage;
                     setState(() {
-                      correctHeight = true;
-                      correctWeight = true;
+                      correctYear = true;
+                      sexSwitchValue = usersex == '남자' ? false : true;
                     });
-                  }
-                  ageController.text = userage;
-                  setState(() {
-                    correctYear = true;
-                    sexSwitchValue = usersex == '남자' ? false : true;
-                  });
-                },
-                child: const Text(
-                  '내 정보 가져오기',
+                  },
+                  child: const Text(
+                    '내 정보 가져오기',
+                    style: TextStyle(fontSize: 24),
+                  ),
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 120,
               ),
               // 다음 버튼 -> 본 설문페이지로 넘어가기
-              ElevatedButton(
-                onPressed: correctYear && correctHeight && correctWeight
-                    ? () {
-                        //if로 한번 더 감싸기(개인정보보호법 둘 다 클릭 완료 시 넘어감)
-                        if (widget.pageController.hasClients) {
-                          StrokeMessage.sex =
-                              (sexSwitchValue ? 'female' : 'male').toString();
-                          StrokeMessage.age = currentYear -
-                              int.parse(ageController.text.trim());
-                          StrokeMessage.height =
-                              double.parse(heightController.text.trim());
-                          StrokeMessage.weight =
-                              double.parse(weightController.text.trim());
-                          widget.pageController.animateToPage(
-                            2,
-                            duration: const Duration(milliseconds: 400),
-                            curve: Curves.easeInOut,
-                          );
+              SizedBox(
+                height: 60,
+                child: ElevatedButton(
+                  onPressed: correctYear && correctHeight && correctWeight
+                      ? () {
+                          //if로 한번 더 감싸기(개인정보보호법 둘 다 클릭 완료 시 넘어감)
+                          if (widget.pageController.hasClients) {
+                            StrokeMessage.sex =
+                                (sexSwitchValue ? 'female' : 'male').toString();
+                            StrokeMessage.age = currentYear -
+                                int.parse(ageController.text.trim());
+                            StrokeMessage.height =
+                                double.parse(heightController.text.trim());
+                            StrokeMessage.weight =
+                                double.parse(weightController.text.trim());
+                            widget.pageController.animateToPage(
+                              2,
+                              duration: const Duration(milliseconds: 400),
+                              curve: Curves.easeInOut,
+                            );
+                          }
                         }
-                      }
-                    : null,
-                child: const Text('다음'),
+                      : null,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        '다음',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

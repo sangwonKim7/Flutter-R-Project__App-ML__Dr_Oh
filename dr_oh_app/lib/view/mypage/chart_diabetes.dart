@@ -33,11 +33,6 @@ class _ChartDiabetesState extends State<ChartDiabetes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(appBar: AppBar(), title: '당뇨병 그래프'),
-      // appBar: AppBar(
-      //   title: const Text('당뇨병 그래프'),
-      //   elevation: 1,
-      //   actions: const [LogoutBtn()],
-      // ),
       body: Center(
         child: Column(
           children: [

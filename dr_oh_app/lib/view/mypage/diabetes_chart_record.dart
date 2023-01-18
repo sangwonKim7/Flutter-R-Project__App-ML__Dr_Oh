@@ -30,11 +30,6 @@ class _DiabetesChartRecordState extends State<DiabetesChartRecord> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(appBar: AppBar(), title: '당뇨병 차트 기록'),
-      // appBar: AppBar(
-      //   title: const Text('당뇨병 차트 기록'),
-      //   elevation: 1,
-      //   actions: const [LogoutBtn()],
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(

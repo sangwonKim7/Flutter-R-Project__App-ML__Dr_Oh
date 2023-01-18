@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
                 borderRadius: BorderRadius.circular(10.0)),
             //Dialog Main Title
             title: Column(
-              children: const <Widget>[
+              children: const [
                 Text("로그인 실패"),
               ],
             ),
@@ -81,7 +81,7 @@ class _LoginState extends State<Login> {
                 ),
               ],
             ),
-            actions: <Widget>[
+            actions: [
               ElevatedButton(
                 child: const Text("확인"),
                 onPressed: () {

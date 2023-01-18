@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/custom_app_bar.dart';
-import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/model/user.dart';
 import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:dr_oh_app/view/mypage/bmi_chart_record.dart';
@@ -25,96 +24,84 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   String id = '';
   Widget _head(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7),
-          color: const Color(0xFF99CD89),
-        ),
-        width: Get.width,
-        height: 30,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: Theme.of(context).primaryColor,
+      ),
+      width: Get.width,
+      height: 44,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
   Widget _profile(String name, String gender, String birthdate, String email) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 1,
-            ),
-          ],
-        ),
-        width: Get.width,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    height: 35,
-                    child: TextButton(
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 1,
+          ),
+        ],
+      ),
+      width: Get.width,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SizedBox(
+                  height: 35,
+                  child: TextButton(
                       onPressed: () async {
                         UserRepository usrr = UserRepository();
                         UserModel usr = await usrr.getUserInfo();
                         Get.to(EditMemberInfo(user: usr));
                       },
-                      child: const Text(
-                        '수정',
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const Divider(thickness: 0.5, height: 1, color: Colors.grey),
-              const SizedBox(height: 10),
-              _profileContent('이름', name, 4),
-              const SizedBox(height: 10),
-              const Divider(thickness: 0.5, height: 1, color: Colors.grey),
-              const SizedBox(height: 10),
-              _profileContent('성별', gender, 4),
-              const SizedBox(height: 10),
-              const Divider(thickness: 0.5, height: 1, color: Colors.grey),
-              const SizedBox(height: 10),
-              _profileContent('생년월일', birthdate, 5.2),
-              const SizedBox(height: 10),
-              const Divider(thickness: 0.5, height: 1, color: Colors.grey),
-              const SizedBox(height: 10),
-              _profileContent('이메일', email, 4.5),
-              const SizedBox(height: 10),
-            ],
-          ),
+                      child: const Icon(Icons.settings)),
+                ),
+              ],
+            ),
+            const Divider(thickness: 0.5, height: 1, color: Colors.grey),
+            const SizedBox(height: 10),
+            _profileContent('이름', name, 4.1),
+            const SizedBox(height: 10),
+            const Divider(thickness: 0.5, height: 1, color: Colors.grey),
+            const SizedBox(height: 10),
+            _profileContent('성별', gender, 4.1),
+            const SizedBox(height: 10),
+            const Divider(thickness: 0.5, height: 1, color: Colors.grey),
+            const SizedBox(height: 10),
+            _profileContent('생년월일', birthdate, 6.1),
+            const SizedBox(height: 10),
+            const Divider(thickness: 0.5, height: 1, color: Colors.grey),
+            const SizedBox(height: 10),
+            _profileContent('이메일', email, 4.8),
+            const SizedBox(height: 10),
+          ],
         ),
       ),
     );
@@ -128,16 +115,14 @@ class _MyPageState extends State<MyPage> {
         Text(
           title,
           style: const TextStyle(
-            color: Colors.black,
-            fontSize: 14,
-          ),
+              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         ),
         SizedBox(width: Get.width / width),
         Text(
           content,
           style: const TextStyle(
             color: Colors.black,
-            fontSize: 14,
+            fontSize: 18,
           ),
         ),
       ],
@@ -146,41 +131,46 @@ class _MyPageState extends State<MyPage> {
 
   Widget _userInfo() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 27),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 1,
+          ),
+        ],
+      ),
+      width: Get.width,
       child: Column(
         children: <Widget>[
-          Card(
-            elevation: 4,
-            child: Column(
-              children: <Widget>[
-                // _btnContentActions(
-                //   "즐겨찾기한 병원",
-                //   const Icon(
-                //     Icons.local_hospital,
-                //     color: Color(0xFF99CD89),
-                //   ),
-                //   const SignOut(),
-                // ),
-                // const Divider(),
-                // _btnContentActions(
-                //   "내가 쓴 글",
-                //   const Icon(
-                //     Icons.payment,
-                //     color: Color(0xFF99CD89),
-                //   ),
-                //   const SignOut(),
-                // ),
-                // const Divider(),
-                _btnContentActions(
-                  "회원 탈퇴",
-                  const Icon(
-                    Icons.info_outline,
-                    color: Color(0xFF99CD89),
-                  ),
-                  const SignOut(),
-                ),
-              ],
+          // _btnContentActions(
+          //   "즐겨찾기한 병원",
+          //   const Icon(
+          //     Icons.local_hospital,
+          //     color: Color(0xFF99CD89),
+          //   ),
+          //   const SignOut(),
+          // ),
+          // const Divider(),
+          // _btnContentActions(
+          //   "내가 쓴 글",
+          //   const Icon(
+          //     Icons.payment,
+          //     color: Color(0xFF99CD89),
+          //   ),
+          //   const SignOut(),
+          // ),
+          // const Divider(),
+          _btnContentActions(
+            "회원 탈퇴",
+            Icon(
+              Icons.info_outline,
+              color: Theme.of(context).primaryColor,
+              size: 36,
             ),
+            const SignOut(),
           ),
         ],
       ),
@@ -189,72 +179,89 @@ class _MyPageState extends State<MyPage> {
 
   Widget _additionalInfo() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 27),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 1,
+          ),
+        ],
+      ),
+      // width: Get.width,
+      height: 220,
       child: Column(
-        children: <Widget>[
-          Card(
-            elevation: 4,
-            child: Column(
-              children: <Widget>[
-                _btnContentActions(
-                  "당뇨병 차트 기록",
-                  const Icon(
-                    Icons.bar_chart,
-                    color: Color(0xFF99CD89),
-                  ),
-                  // 2023-01-13, SangwonKim
-                  // Desc: 당뇨병 차트 기록으로 가기
-                  const DiabetesChartRecord(),
-                ),
-                const Divider(),
-                _btnContentActions(
-                  "뇌졸중 차트 기록",
-                  const Icon(
-                    Icons.show_chart,
-                    color: Color(0xFF99CD89),
-                  ),
-                  // 2023-01-13, SangwonKim
-                  // Desc: 뇌졸중 차트 기록으로 가기
-                  const StrokeChartRecord(),
-                ),
-                const Divider(),
-                _btnContentActions(
-                  "치매 차트 기록",
-                  const Icon(
-                    Icons.area_chart,
-                    color: Color(0xFF99CD89),
-                  ),
-                  // 2023-01-13, SangwonKim
-                  // Desc: 뇌졸중 차트 기록으로 가기
-                  const DementiaChartRecord(),
-                ),
-                const Divider(),
-                _btnContentActions(
-                  "BMI 차트 기록",
-                  const Icon(
-                    Icons.pie_chart,
-                    color: Color(0xFF99CD89),
-                  ),
-                  // 2023-01-13, SangwonKim
-                  // Desc: BMI 차트 기록으로 가기
-                  const BmiChartRecord(),
-                ),
-              ],
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _btnContentActions(
+            "당뇨병 차트 기록",
+            const Icon(
+              Icons.bar_chart,
+              color: Colors.red,
+              size: 36,
             ),
+            // 2023-01-13, SangwonKim
+            // Desc: 당뇨병 차트 기록으로 가기
+            const DiabetesChartRecord(),
+          ),
+          const Divider(),
+          _btnContentActions(
+            "뇌졸중 차트 기록",
+            const Icon(
+              Icons.show_chart,
+              color: Colors.green,
+              size: 36,
+            ),
+            // 2023-01-13, SangwonKim
+            // Desc: 뇌졸중 차트 기록으로 가기
+            const StrokeChartRecord(),
+          ),
+          const Divider(),
+          _btnContentActions(
+            "치매 차트 기록",
+            const Icon(
+              Icons.area_chart,
+              color: Colors.blue,
+              size: 36,
+            ),
+            // 2023-01-13, SangwonKim
+            // Desc: 뇌졸중 차트 기록으로 가기
+            const DementiaChartRecord(),
+          ),
+          const Divider(),
+          _btnContentActions(
+            "BMI 차트 기록",
+            const Icon(
+              Icons.pie_chart,
+              color: Colors.deepPurple,
+              size: 36,
+            ),
+            // 2023-01-13, SangwonKim
+            // Desc: BMI 차트 기록으로 가기
+            const BmiChartRecord(),
           ),
         ],
       ),
     );
   }
 
-  Widget _btnContentActions(String text, Icon icon, dynamic? path) {
-    return ListTile(
-      leading: icon == null ? const Icon(Icons.error) : icon,
-      title: Text(text),
+  Widget _btnContentActions(String text, Icon icon, dynamic path) {
+    return
+    ListTile(
+      leading: icon,
+      title: Text(
+        "  $text",
+        style: const TextStyle(fontSize: 20),
+      ),
+      dense: true,
+      visualDensity: const VisualDensity(vertical: -2),
+      // visualDensity: VisualDensity(vertical: -3)
       trailing: const Icon(
         Icons.arrow_forward_ios,
-        size: 15,
-        color: Colors.grey,
+        size: 24,
+        color: Colors.brown,
       ),
       onTap: () {
         Get.to(path);
@@ -291,20 +298,13 @@ class _MyPageState extends State<MyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(appBar: AppBar(), title: '내 정보'),
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   title: const Text('MY PAGE'),
-      //   elevation: 1,
-      //   actions: const [LogoutBtn()],
-      // ),
-      body: SingleChildScrollView(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
         child: Column(
           children: [
-            const SizedBox(height: 30),
             _head('기본정보'),
-            const SizedBox(height: 3),
             SizedBox(
-              height: 200,
+              height: 210,
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('users')
@@ -319,37 +319,40 @@ class _MyPageState extends State<MyPage> {
                   final documents = snapshot.data!.docs;
 
                   return ListView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: documents.map((e) => _getMemberInfo(e)).toList(),
                   );
                 }),
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 10),
             _head('추가정보'),
             _additionalInfo(),
-            const SizedBox(height: 30),
-            _head('사용자정보'),
+            const SizedBox(height: 2),
+            Divider(
+              height: 20,
+              color: Theme.of(context).primaryColor,
+              thickness: 3,
+              indent: 8,
+              endIndent: 8,
+            ),
+            const SizedBox(height: 2),
             _userInfo(),
-            const SizedBox(height: 30),
-            const Text(
+            const SizedBox(height: 4),
+            Text(
               "Dr. Oh",
               style: TextStyle(
-                  color: Color(0xFF99CD89),
-                  fontSize: 24,
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 5),
             const Text(
               "Version 0.0.1",
               style: TextStyle(
-                fontSize: 18,
-                color: Colors.grey,
+                fontSize: 12,
+                color: Colors.black54,
               ),
             ),
-            const SizedBox(
-              height: 24,
-            )
           ],
         ),
       ),

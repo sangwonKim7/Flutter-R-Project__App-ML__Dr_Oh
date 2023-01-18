@@ -276,23 +276,17 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
+    return Scaffold(
+      appBar: CustomAppBar(appBar: AppBar(), title: '정보 수정'),
+      body: GestureDetector(
+        onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Scaffold(
-        appBar: CustomAppBar(appBar: AppBar(), title: '정보 수정'),
-        // appBar: AppBar(
-        //   centerTitle: true,
-        //   title: const Text('회원정보 수정'),
-        //   elevation: 1,
-        //   actions: const [LogoutBtn()],
-        // ),
-        body: SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(height: 100),
                 Container(
                   width: 350,
                   padding: const EdgeInsets.all(20),
@@ -321,11 +315,20 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
                         builder: ((context, snapshot) {
                           if (!snapshot.hasData) {
                             return const Center(
-                              child: CircularProgressIndicator(),
-                            );
+                                child: CircularProgressIndicator());
+                          }
+                          if (snapshot.hasError) {
+                            return const Text('Error');
+                          }
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Text('Loading');
+                          }
+                          if (snapshot.data == null) {
+                            return const Text('Empty');
                           }
                           final documents = snapshot.data!.docs;
-
+      
                           return documents.map(((e) {
                             final user = UserModel(
                               name: e['name'],

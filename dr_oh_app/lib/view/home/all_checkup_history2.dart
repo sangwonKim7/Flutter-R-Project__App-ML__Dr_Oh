@@ -1,15 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/custom_app_bar.dart';
-import 'package:dr_oh_app/components/logout_btn.dart';
-import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CheckupHistory extends StatelessWidget {
-  CheckupHistory({super.key});
-
-  // CheckupHistoryViewModel checkupHistoryViewModel = CheckupHistoryViewModel();
+class AllCheckupHistory2 extends StatelessWidget {
+  const AllCheckupHistory2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +19,7 @@ class CheckupHistory extends StatelessWidget {
 }
 
 class ListBody extends StatefulWidget {
-  final selectedDate;
+  final dynamic selectedDate;
   const ListBody({super.key, required this.selectedDate});
 
   @override
@@ -41,13 +37,14 @@ class _ListBodyState extends State<ListBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(appBar: AppBar(), title: '검진기록 조회'),
+      appBar: CustomAppBar(appBar: AppBar(), title: '전체 검진기록 조회'),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('result')
+              .orderBy('date', descending: false)
               .where('userid', isEqualTo: id)
-              .where('date',
-                  isEqualTo: widget.selectedDate.toString().substring(0, 10))
+              // .where('date',
+              //     isEqualTo: widget.selectedDate.toString().substring(0, 10))
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {

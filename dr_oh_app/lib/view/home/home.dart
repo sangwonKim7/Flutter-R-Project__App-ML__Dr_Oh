@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/custom_app_bar.dart';
-import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/components/news_api.dart';
 import 'package:dr_oh_app/model/body_info_model.dart';
 import 'package:dr_oh_app/model/name_model.dart';
 import 'package:dr_oh_app/model/news_model.dart';
-import 'package:dr_oh_app/view/home/all_checkup_history.dart';
+import 'package:dr_oh_app/view/home/all_checkup_history2.dart';
 import 'package:dr_oh_app/view/home/body_info.dart';
 import 'package:dr_oh_app/view/home/checkup_history.dart';
+import 'package:dr_oh_app/view/survey/dementia_survey.dart';
+import 'package:dr_oh_app/view/survey/diabetes_survey_page.dart';
+import 'package:dr_oh_app/view/survey/stroke_survey_page.dart';
 import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +32,8 @@ class _HomeState extends State<Home> {
   }
   // News API */
 
-  final CheckupHistoryViewModel _checkupHistoryViewModel = CheckupHistoryViewModel();
+  final CheckupHistoryViewModel _checkupHistoryViewModel =
+      CheckupHistoryViewModel();
   late String id = '';
 
   // Desc: shared preferences 받기
@@ -275,7 +278,7 @@ class _HomeState extends State<Home> {
       '${user.name}님 건강한 하루 되세요!',
       style: const TextStyle(
         fontSize: 20,
-        fontWeight: FontWeight.bold,
+        // fontWeight: FontWeight.bold,
       ),
     );
   }
@@ -293,7 +296,7 @@ class _HomeState extends State<Home> {
     return SizedBox(
       child: bodyinfo.height.toString().isNotEmpty
           ? Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
                   '   신체정보',
@@ -305,9 +308,7 @@ class _HomeState extends State<Home> {
                 Text(
                   '키(${bodyinfo.height}cm), 몸무게(${bodyinfo.weight}kg)',
                   style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold
-                  ),
+                      fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 IconButton(
                   onPressed: () => Get.to(const BodyInfo()),
@@ -338,13 +339,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(appBar: AppBar(), title: '홈'),
-      // appBar: AppBar(
-      //   title: const Text('HOME'),
-      //   elevation: 1,
-      //   actions: const [LogoutBtn()],
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Center(
@@ -387,45 +382,35 @@ class _HomeState extends State<Home> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
-                              Icons.keyboard_double_arrow_down_rounded),
+                          const Icon(Icons.keyboard_double_arrow_down_rounded),
                           Text(
                             ' 진단하러 가기 ',
                             style: TextStyle(
-                                color: Colors.grey[800],
-                                fontSize: 20,
+                                color: Colors.grey[850],
+                                fontSize: 24,
                                 fontWeight: FontWeight.bold),
                           ),
-                          const Icon(
-                              Icons.keyboard_double_arrow_down_rounded),
+                          const Icon(Icons.keyboard_double_arrow_down_rounded),
                         ],
                       ),
                       const SizedBox(
                         height: 4,
                       ),
-                      // Expanded(
-                      //   child: SizedBox(
-                      //     height: 30,
-                      //     width: 20,
-                      //     child: IconButton(
-                      //       onPressed: () async {
-                      //         UserRepository usrr = UserRepository();
-                      //         UserModel user = await usrr.getUserInfo();
-                      //         Get.to(EditMemberInfo(user: user));
-                      //       },
-                      //       icon: const Icon(
-                      //         Icons.arrow_forward_ios,
-                      //         size: 15,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Image.asset('images/diabetes.png'),
-                          Image.asset('images/stroke.png'),
-                          Image.asset('images/dementia.png'),
+                          GestureDetector(
+                              onTap: () => Get.to(
+                                  DiabetesSurveyPage(surveyName: '당뇨병 진단')),
+                              child: Image.asset('images/diabetes.png')),
+                          GestureDetector(
+                              onTap: () => Get.to(
+                                  StrokeSurveyPage(surveyName: '뇌졸중 진단')),
+                              child: Image.asset('images/stroke.png')),
+                          GestureDetector(
+                              onTap: () => Get.to(
+                                  DementiaSurvey()),
+                              child: Image.asset('images/dementia.png')),
                         ],
                       ),
                       const SizedBox(
@@ -453,14 +438,14 @@ class _HomeState extends State<Home> {
                           '마지막 검진일: ${_checkupHistoryViewModel.date.toString().substring(0, 10)}',
                           style: const TextStyle(
                             fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                            // fontWeight: FontWeight.bold,
                           ),
                         );
                       },
                     ),
                     TextButton(
                         onPressed: () {
-                          Get.to(const AllCheckupHistory());
+                          Get.to(const AllCheckupHistory2());
                         },
                         style: TextButton.styleFrom(
                           foregroundColor: Colors.indigo,
@@ -497,28 +482,6 @@ class _HomeState extends State<Home> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       const Text(
-                    //         '신체정보',
-                    //         style: TextStyle(
-                    //           fontSize: 20,
-                    //           fontWeight: FontWeight.bold,
-                    //         ),
-                    //       ),
-                    //       IconButton(
-                    //         onPressed: () => Get.to(const BodyInfo()),
-                    //         icon: const Icon(Icons.edit),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    // const SizedBox(
-                    //   height: 4,
-                    // ),
                     SizedBox(
                       height: 40,
                       child: StreamBuilder<QuerySnapshot>(
@@ -536,9 +499,8 @@ class _HomeState extends State<Home> {
 
                           return ListView(
                             physics: const NeverScrollableScrollPhysics(),
-                            children: documents
-                                .map((e) => _getBodyinfo(e))
-                                .toList(),
+                            children:
+                                documents.map((e) => _getBodyinfo(e)).toList(),
                           );
                         }),
                       ),

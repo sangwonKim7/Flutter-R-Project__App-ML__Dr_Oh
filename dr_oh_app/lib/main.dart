@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
           color: Colors.grey[50],
           foregroundColor: Colors.black,
         ),
-        scaffoldBackgroundColor: Color.fromARGB(255, 224, 226, 227),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 224, 226, 227),
         navigationBarTheme: NavigationBarThemeData(
           // backgroundColor: Colors.grey[400],
           indicatorColor: const Color(0xFF3A5A65).withOpacity(0.5)

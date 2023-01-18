@@ -19,7 +19,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
   @override
   void initState() {
     super.initState();
-    currentPageIndex = 0;
+    currentPageIndex = 1;
   }
 
   @override
@@ -27,22 +27,22 @@ class _CustomNavBarState extends State<CustomNavBar> {
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home),
-            label: '홈',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.content_paste),
-            label: '문진',
-          ),
+          // NavigationDestination(
+          //   icon: Icon(Icons.content_paste),
+          //   label: '문진',
+          // ),
           NavigationDestination(
             icon: Icon(Icons.local_hospital),
             label: '병원',
           ),
           NavigationDestination(
-            icon: Icon(Icons.info_outline),
-            label: '정보',
+            icon: Icon(Icons.home),
+            label: '홈',
           ),
+          // NavigationDestination(
+          //   icon: Icon(Icons.info_outline),
+          //   label: '정보',
+          // ),
           NavigationDestination(
             icon: Icon(Icons.account_circle),
             label: '내 정보',
@@ -56,13 +56,13 @@ class _CustomNavBarState extends State<CustomNavBar> {
         },
         backgroundColor: Theme.of(context).primaryColor.withOpacity(0.3),
         animationDuration: const Duration(seconds: 2),
-        height: 64,labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        height: 60,labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       ),
       body: <Widget>[
-        const Home(),
-        const Survey(),
+        // const Survey(),
         const Hospital(),
-        const Information(),
+        const Home(),
+        // const Information(),
         const MyPage(),
       ][currentPageIndex],
     );
