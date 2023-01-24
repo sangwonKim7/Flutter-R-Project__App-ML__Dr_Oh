@@ -45,6 +45,8 @@ public class RServiceImpl implements RService {
 		conn.close();
 	}
 	
+	// Date: 2023-01-12
+	// Desc: 뇌졸중(Stroke) 예측
 	@Override
 	public void PredictStroke(HttpServletRequest request, Model model) throws Exception {
 		request.setCharacterEncoding("utf-8");
@@ -59,6 +61,8 @@ public class RServiceImpl implements RService {
 		int hypertension=Integer.parseInt(request.getParameter("hypertension"));
 		int heartDisease=Integer.parseInt(request.getParameter("heartDisease"));
 		int everMarried=Integer.parseInt(request.getParameter("everMarried"));
+		int residenceType=Integer.parseInt(request.getParameter("residenceType"));
+		int smoke=Integer.parseInt(request.getParameter("smoke"));
 		
 		int workType0 = 0;
 		int workType1 = 0;
@@ -82,17 +86,7 @@ public class RServiceImpl implements RService {
 			workType4 = 1;
 			break;
 		}
-//		String workType4=request.getParameter("workType4").toString();
-		System.out.println(sex);
-		System.out.println(bmi);
-		System.out.println(workType0);
-		System.out.println(workType1);
-		System.out.println(workType2);
-		System.out.println(workType3);
-		System.out.println(workType4);
-		int residenceType=Integer.parseInt(request.getParameter("residenceType"));
-		int smoke=Integer.parseInt(request.getParameter("smoke"));
-		
+
 		RConnection conn = new RConnection();
 		
 		conn.voidEval("library(randomForest)");
@@ -101,7 +95,7 @@ public class RServiceImpl implements RService {
 		conn.voidEval("result=as.character(predict(machine,list(sex=" + sex + ",age=" + age + ",bmi=" + bmi + ",hypertension=" + hypertension + ",heart_disease=" + heartDisease + ",ever_married=" + everMarried + ",work_type_0=" + workType0 + ",work_type_1=" + workType1 + ",work_type_2=" + workType2 + ",work_type_3=" + workType3 + ",work_type_4=" + workType4 + ",Residence_type=" + residenceType + ",smoking_status=" + smoke + ")))");
 
 		String result = conn.eval("result").asString();
-		
+		System.out.println(result);
 		model.addAttribute("ITEM", result);
 		
 		conn.close();

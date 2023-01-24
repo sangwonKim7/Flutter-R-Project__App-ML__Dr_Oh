@@ -74,7 +74,6 @@ class _SecondAState extends State<SecondA> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     score = 1;
     values = const RangeValues(0, 6);

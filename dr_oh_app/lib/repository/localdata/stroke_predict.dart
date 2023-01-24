@@ -23,7 +23,7 @@ class StrokePredict {
     double bmi = weight / (height * height * 0.01 * 0.01);
 
     var url = Uri.parse(
-        // iphone ip
+        // iOS ip
         'http://localhost:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
         // android ip
         // 'http://192.168.10.213:8080/stroke?sex=$sex&age=$age&bmi=$bmi&hypertension=$hypertension&heartDisease=$heartDisease&everMarried=$everMarried&workType=$workType&residenceType=$residenceType&smoke=$smoke');
@@ -47,7 +47,7 @@ class StrokePredict {
     String id = prefs.getString('id')!;
     String date = DateTime.now().toString().substring(0, 10);
 
-    // Stroke 데이타 업데이트하기
+    // Stroke 데이터 저장하기
     FirebaseFirestore.instance.collection('result').add({
       'result': (double.parse(result)*100).toString(),
       'userid': id,

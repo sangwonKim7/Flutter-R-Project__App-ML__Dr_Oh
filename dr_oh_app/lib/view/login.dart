@@ -1,4 +1,3 @@
-import 'package:dr_oh_app/app.dart';
 import 'package:dr_oh_app/custom_nav_bar.dart';
 import 'package:dr_oh_app/view/join.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -183,8 +182,9 @@ class _LoginState extends State<Login> {
               Text(
                 '로그인',
                 style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  letterSpacing: 2
+                  // fontWeight: FontWeight.bold,
                 ),
               ),
             ],

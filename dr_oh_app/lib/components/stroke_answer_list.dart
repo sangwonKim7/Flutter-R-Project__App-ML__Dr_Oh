@@ -8,11 +8,19 @@ class StrokeAnswerList {
   List<Widget> strokeAnswerList = const [
     FirstAnswer(), // 1번 답변
     SecondAnswer(), // 2번 답변
-    ThirdAnswer(), // 2번 답변
-    ForthAnswer(), // 3번 답변
-    FifthAnswer(), // 4번 답변
-    SixAnswer(), // 5번 답변
+    ThirdAnswer(), // 3번 답변
+    ForthAnswer(), // 4번 답변
+    FifthAnswer(), // 5번 답변
+    SixAnswer(), // 6번 답변
   ];
+}
+
+class CustomTextStyle {
+  static const TextStyle surveyTextStyle = TextStyle(
+    fontSize: 22,
+    // color: Colors.green,
+    fontWeight: FontWeight.bold,
+  );
 }
 
 // --- 답변 1~5번 ---
@@ -32,17 +40,26 @@ class _FirstAnswerState extends State<FirstAnswer> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('예'),
-        Radio(
-          value: "1",
-          groupValue: StrokeMessage.hypertension,
-          onChanged: (value) {
-            setState(() {
-              StrokeMessage.hypertension = value!;
-            });
-          },
+        const Text(
+          '예',
+          style: CustomTextStyle.surveyTextStyle,
         ),
-        const Text('아니오'),
+        SizedBox(
+          child: Radio(
+            value: "1",
+            groupValue: StrokeMessage.hypertension,
+            onChanged: (value) {
+              setState(() {
+                StrokeMessage.hypertension = value!;
+              });
+            },
+          ),
+        ),
+        const SizedBox(width: 20),
+        const Text(
+          '아니오',
+          style: CustomTextStyle.surveyTextStyle,
+        ),
         Radio(
           value: "0",
           groupValue: StrokeMessage.hypertension,
@@ -72,7 +89,10 @@ class _SecondAnswerState extends State<SecondAnswer> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('예'),
+        const Text(
+          '예',
+          style: CustomTextStyle.surveyTextStyle,
+        ),
         Radio(
           value: "1",
           groupValue: StrokeMessage.heartDisease,
@@ -82,7 +102,11 @@ class _SecondAnswerState extends State<SecondAnswer> {
             });
           },
         ),
-        const Text('아니오'),
+        const SizedBox(width: 20),
+        const Text(
+          '아니오',
+          style: CustomTextStyle.surveyTextStyle,
+        ),
         Radio(
           value: "0",
           groupValue: StrokeMessage.heartDisease,
@@ -112,7 +136,7 @@ class _ThirdAnswerState extends State<ThirdAnswer> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('예'),
+        const Text('예',style: CustomTextStyle.surveyTextStyle,),
         Radio(
           value: "1",
           groupValue: StrokeMessage.everMarried,
@@ -122,7 +146,8 @@ class _ThirdAnswerState extends State<ThirdAnswer> {
             });
           },
         ),
-        const Text('아니오'),
+        const SizedBox(width: 20),
+        const Text('아니오',style: CustomTextStyle.surveyTextStyle),
         Radio(
           value: "0",
           groupValue: StrokeMessage.everMarried,
@@ -154,7 +179,7 @@ class _ForthAnswerState extends State<ForthAnswer> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('무직'),
+            const Text('무직',style: CustomTextStyle.surveyTextStyle),
             Radio(
               value: "0",
               groupValue: StrokeMessage.workType,
@@ -164,7 +189,7 @@ class _ForthAnswerState extends State<ForthAnswer> {
                 });
               },
             ),
-            const Text('청소년'),
+            const Text('청소년',style: CustomTextStyle.surveyTextStyle),
             Radio(
               value: "1",
               groupValue: StrokeMessage.workType,
@@ -179,7 +204,7 @@ class _ForthAnswerState extends State<ForthAnswer> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('공무원'),
+            const Text('공무원',style: CustomTextStyle.surveyTextStyle),
             Radio(
               value: "2",
               groupValue: StrokeMessage.workType,
@@ -189,7 +214,7 @@ class _ForthAnswerState extends State<ForthAnswer> {
                 });
               },
             ),
-            const Text('자영업'),
+            const Text('자영업',style: CustomTextStyle.surveyTextStyle),
             Radio(
               value: "3",
               groupValue: StrokeMessage.workType,
@@ -199,7 +224,7 @@ class _ForthAnswerState extends State<ForthAnswer> {
                 });
               },
             ),
-            const Text('사기업'),
+            const Text('사기업',style: CustomTextStyle.surveyTextStyle),
             Radio(
               value: "4",
               groupValue: StrokeMessage.workType,
@@ -231,7 +256,7 @@ class _FifthAnswerState extends State<FifthAnswer> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('도시'),
+        const Text('도시',style: CustomTextStyle.surveyTextStyle),
         Radio(
           value: "1",
           groupValue: StrokeMessage.residenceType,
@@ -241,7 +266,8 @@ class _FifthAnswerState extends State<FifthAnswer> {
             });
           },
         ),
-        const Text('시골'),
+        const SizedBox(width: 20),
+        const Text('시골',style: CustomTextStyle.surveyTextStyle),
         Radio(
           value: "0",
           groupValue: StrokeMessage.residenceType,
@@ -271,7 +297,7 @@ class _SixAnswerState extends State<SixAnswer> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('예'),
+        const Text('예',style: CustomTextStyle.surveyTextStyle),
         Radio(
           value: "1",
           groupValue: StrokeMessage.smoke,
@@ -281,7 +307,7 @@ class _SixAnswerState extends State<SixAnswer> {
             });
           },
         ),
-        const Text('아니오'),
+        const Text('아니오',style: CustomTextStyle.surveyTextStyle),
         Radio(
           value: "0",
           groupValue: StrokeMessage.smoke,
@@ -313,7 +339,6 @@ class _SliderAnswerState extends State<SliderAnswer> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     score = 1;
     values = const RangeValues(0, 6);
@@ -356,7 +381,6 @@ class _CheckboxAnswerState extends State<CheckboxAnswer> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     first = false;
     second = false;

@@ -22,7 +22,6 @@ class _StrokeResultPageState extends State<StrokeResultPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     result = double.parse(widget.result) * 100;
   }
@@ -31,13 +30,6 @@ class _StrokeResultPageState extends State<StrokeResultPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(appBar: AppBar(), title: '뇌졸중 예측 결과'),
-      // appBar: AppBar(
-      //   title: const Text(
-      //     '뇌졸중 예측 결과',
-      //   ),
-      //   elevation: 1,
-      //   actions: const [LogoutBtn()],
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Center(
@@ -56,28 +48,45 @@ class _StrokeResultPageState extends State<StrokeResultPage> {
                           : result >= 25
                               ? '관심'
                               : '안전',
+                  style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                      color: result >= 75
+                          ? Colors.red
+                          : result >= 50
+                              ? Colors.orange
+                              : result >= 25
+                                  ? Colors.indigo
+                                  : Colors.green
+                      ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                width: 100,
+                height: 72,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Colors.black, style: BorderStyle.solid),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Text(
+                  '${(double.parse(widget.result) * 100).round()}',
                   style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold),
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               const SizedBox(height: 12),
-              Text(
-                '${(double.parse(widget.result) * 100).round()}',
-                style: const TextStyle(
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
                     '0',
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 24,
                     ),
                   ),
                   Padding(
@@ -86,9 +95,10 @@ class _StrokeResultPageState extends State<StrokeResultPage> {
                       width: 200,
                       height: 50,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: const Color(0xCCCCE6C4),
-                      ),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Theme.of(context)
+                              .primaryColorLight
+                              .withOpacity(0.5)),
                       child: Row(
                         children: [
                           Container(
@@ -104,7 +114,6 @@ class _StrokeResultPageState extends State<StrokeResultPage> {
                                         : result >= 25
                                             ? Colors.indigo
                                             : Colors.green
-                                // const Color(0xFF5B9D46),
                                 ),
                           ),
                         ],
@@ -114,27 +123,55 @@ class _StrokeResultPageState extends State<StrokeResultPage> {
                   const Text(
                     '100',
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 24,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 20,
+              const SizedBox(height: 4),
+              Text(
+                result >= 75
+                    ? '위험합니다. 빠른 시일 안에 병원에 방문해주세요!'
+                    : result >= 50
+                        ? '주의를 요합니다. 생활습관에 신경써주세요!'
+                        : result >= 25
+                            ? '관심을 가져주세요!'
+                            : '안전합니다!',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    // decoration: TextDecoration.underline,
+                    color: Colors.grey.shade700
+                    // color:
+                    ),
               ),
+              const SizedBox(height: 16),
               // Date: 2023-01-11, SangwonKim
               // Desc: 연령대별 뇌졸중 위험도 차트
               const StrokeBarChartWidget(),
-              const SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Get.off(const App());
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [Text('처음으로')],
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 60,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.off(const App());
+                  },
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        '처음으로',
+                        style: TextStyle(
+                          fontSize: 28,
+                          // fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],

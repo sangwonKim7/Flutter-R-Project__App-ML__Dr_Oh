@@ -65,7 +65,7 @@ class _DiabetesChartRecordState extends State<DiabetesChartRecord> {
                       };
                     }).toList();
 
-                    return LineChartWidget(id: id, listChart: listChart);
+                    return LineChartWidget(id: id, listChart: listChart, title: '당뇨병 진단 결과 일별 차트',);
                   }),
                   const SizedBox(height: 16,),
                   const DiabetesBarChartWidget()

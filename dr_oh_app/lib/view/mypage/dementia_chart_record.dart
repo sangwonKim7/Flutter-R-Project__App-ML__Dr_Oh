@@ -51,13 +51,13 @@ class _DementiaChartRecordState extends State<DementiaChartRecord> {
                       .limit(10) // 10개만 가져오기
                       .snapshots(includeMetadataChanges: true),
 
-                      // // >>>2st Try<<<
-                      // .collection('users')
-                      // .doc(data)
-                      // .collection('dementia_p')
-                      // // .orderBy('date', descending: false)
-                      // // .limit(10)
-                      // .snapshots(includeMetadataChanges: true),
+                  // // >>>2st Try<<<
+                  // .collection('users')
+                  // .doc(data)
+                  // .collection('dementia_p')
+                  // // .orderBy('date', descending: false)
+                  // // .limit(10)
+                  // .snapshots(includeMetadataChanges: true),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return const Center(child: CircularProgressIndicator());
@@ -78,10 +78,16 @@ class _DementiaChartRecordState extends State<DementiaChartRecord> {
                       };
                     }).toList();
 
-                    return LineChartWidget(id: id, listChart: listChart);
+                    return LineChartWidget(
+                      id: id,
+                      listChart: listChart,
+                      title: '치매 진단 결과 일별 차트',
+                    );
                   }),
-                  const SizedBox(height: 16,),
-                  const DementiaBarChart()
+              const SizedBox(
+                height: 16,
+              ),
+              const DementiaBarChart()
             ],
           ),
         ),
@@ -99,5 +105,4 @@ class _DementiaChartRecordState extends State<DementiaChartRecord> {
       id = prefs.getString('id').toString();
     });
   }
-
 } // End

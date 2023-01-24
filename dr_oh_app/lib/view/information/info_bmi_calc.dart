@@ -44,11 +44,6 @@ class _InfoBmiCalcState extends State<InfoBmiCalc> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(appBar: AppBar(), title: 'BMI 계산'),
-      // appBar: AppBar(
-      //   title: const Text('BMI 계산'),
-      //   elevation: 1,
-      //   actions: const [LogoutBtn()],
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(14.0),
         child: Center(

@@ -26,7 +26,7 @@ class _MyPageState extends State<MyPage> {
   Widget _head(String title) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         color: Theme.of(context).primaryColor,
       ),
       width: Get.width,
@@ -54,8 +54,8 @@ class _MyPageState extends State<MyPage> {
   Widget _profile(String name, String gender, String birthdate, String email) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        color: Theme.of(context).primaryColorLight,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -72,32 +72,34 @@ class _MyPageState extends State<MyPage> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   height: 35,
-                  child: TextButton(
+                  child: IconButton(
                       onPressed: () async {
                         UserRepository usrr = UserRepository();
                         UserModel usr = await usrr.getUserInfo();
                         Get.to(EditMemberInfo(user: usr));
                       },
-                      child: const Icon(Icons.settings)),
+                      color: Colors.grey[800],
+                      icon: const Icon(Icons.settings)),
                 ),
               ],
             ),
-            const Divider(thickness: 0.5, height: 1, color: Colors.grey),
+            Divider(thickness: 0.5, height: 1, color: Colors.grey[600]),
             const SizedBox(height: 10),
             _profileContent('이름', name, 4.1),
             const SizedBox(height: 10),
-            const Divider(thickness: 0.5, height: 1, color: Colors.grey),
+            Divider(thickness: 0.5, height: 1, color: Colors.grey[600]),
             const SizedBox(height: 10),
             _profileContent('성별', gender, 4.1),
             const SizedBox(height: 10),
-            const Divider(thickness: 0.5, height: 1, color: Colors.grey),
+            Divider(thickness: 0.5, height: 1, color: Colors.grey[600]),
             const SizedBox(height: 10),
             _profileContent('생년월일', birthdate, 6.1),
             const SizedBox(height: 10),
-            const Divider(thickness: 0.5, height: 1, color: Colors.grey),
+            Divider(thickness: 0.5, height: 1, color: Colors.grey[600]),
             const SizedBox(height: 10),
             _profileContent('이메일', email, 4.8),
             const SizedBox(height: 10),
@@ -131,9 +133,10 @@ class _MyPageState extends State<MyPage> {
 
   Widget _userInfo() {
     return Container(
+      height: 52,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        color: Theme.of(context).primaryColorLight,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -144,25 +147,8 @@ class _MyPageState extends State<MyPage> {
       ),
       width: Get.width,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          // _btnContentActions(
-          //   "즐겨찾기한 병원",
-          //   const Icon(
-          //     Icons.local_hospital,
-          //     color: Color(0xFF99CD89),
-          //   ),
-          //   const SignOut(),
-          // ),
-          // const Divider(),
-          // _btnContentActions(
-          //   "내가 쓴 글",
-          //   const Icon(
-          //     Icons.payment,
-          //     color: Color(0xFF99CD89),
-          //   ),
-          //   const SignOut(),
-          // ),
-          // const Divider(),
           _btnContentActions(
             "회원 탈퇴",
             Icon(
@@ -180,8 +166,8 @@ class _MyPageState extends State<MyPage> {
   Widget _additionalInfo() {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        color: Theme.of(context).primaryColorLight,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -206,7 +192,7 @@ class _MyPageState extends State<MyPage> {
             // Desc: 당뇨병 차트 기록으로 가기
             const DiabetesChartRecord(),
           ),
-          const Divider(),
+          Divider(thickness: 0.5, color: Colors.grey[600]),
           _btnContentActions(
             "뇌졸중 차트 기록",
             const Icon(
@@ -218,7 +204,7 @@ class _MyPageState extends State<MyPage> {
             // Desc: 뇌졸중 차트 기록으로 가기
             const StrokeChartRecord(),
           ),
-          const Divider(),
+          Divider(thickness: 0.5, color: Colors.grey[600]),
           _btnContentActions(
             "치매 차트 기록",
             const Icon(
@@ -230,7 +216,7 @@ class _MyPageState extends State<MyPage> {
             // Desc: 뇌졸중 차트 기록으로 가기
             const DementiaChartRecord(),
           ),
-          const Divider(),
+          Divider(thickness: 0.5, color: Colors.grey[600]),
           _btnContentActions(
             "BMI 차트 기록",
             const Icon(
@@ -248,8 +234,7 @@ class _MyPageState extends State<MyPage> {
   }
 
   Widget _btnContentActions(String text, Icon icon, dynamic path) {
-    return
-    ListTile(
+    return ListTile(
       leading: icon,
       title: Text(
         "  $text",
@@ -257,11 +242,10 @@ class _MyPageState extends State<MyPage> {
       ),
       dense: true,
       visualDensity: const VisualDensity(vertical: -2),
-      // visualDensity: VisualDensity(vertical: -3)
-      trailing: const Icon(
+      trailing: Icon(
         Icons.arrow_forward_ios,
         size: 24,
-        color: Colors.brown,
+        color: Colors.grey[800],
       ),
       onTap: () {
         Get.to(path);
@@ -343,13 +327,13 @@ class _MyPageState extends State<MyPage> {
               "Dr. Oh",
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
             const Text(
               "Version 0.0.1",
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 8,
                 color: Colors.black54,
               ),
             ),

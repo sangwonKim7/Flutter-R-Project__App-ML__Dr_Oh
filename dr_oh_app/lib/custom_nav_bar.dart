@@ -1,8 +1,6 @@
 import 'package:dr_oh_app/view/home/home.dart';
 import 'package:dr_oh_app/view/hospital/hospital.dart';
-import 'package:dr_oh_app/view/information/information.dart';
 import 'package:dr_oh_app/view/mypage/mypage.dart';
-import 'package:dr_oh_app/view/survey/survey.dart';
 import 'package:flutter/material.dart';
 
 class CustomNavBar extends StatefulWidget {

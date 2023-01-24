@@ -7,8 +7,13 @@ import 'package:fl_chart/fl_chart.dart';
 class LineChartWidget extends StatefulWidget {
   final String id; // 유저 아이디 선언
   final List listChart; // 유저 진단 결과 리스트 선언 ***
+  final String title;
 
-  const LineChartWidget({super.key, required this.id, required this.listChart});
+  const LineChartWidget(
+      {super.key,
+      required this.id,
+      required this.listChart,
+      required this.title});
 
   @override
   State<LineChartWidget> createState() => _LineChartWidgetState();
@@ -29,22 +34,42 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         AspectRatio(
           aspectRatio: 1.00,
           child: DecoratedBox(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Color(0xFFCCE6C4),
-            ),
-            child: Padding(
-                padding: const EdgeInsets.only(
-                  right: 18,
-                  left: 12,
-                  top: 36,
-                  bottom: 20,
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                color: Theme.of(context).primaryColorLight),
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      widget.title,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 2,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
-                child: LineChart(
-                  showAvg
-                      ? avgData(widget.listChart) // 유저 평균
-                      : mainData(widget.listChart), // 유저 날짜별 위험도 기록
-                )),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    right: 18,
+                    left: 12,
+                    top: 36,
+                    bottom: 20,
+                  ),
+                  child: LineChart(
+                    showAvg
+                        ? avgData(widget.listChart) // 유저 평균
+                        : mainData(widget.listChart), // 유저 날짜별 위험도 기록
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         SizedBox(
@@ -59,8 +84,9 @@ class _LineChartWidgetState extends State<LineChartWidget> {
             child: Text(
               '평균',
               style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
+                fontSize: 18,
+                fontWeight: FontWeight.w900,
+                backgroundColor: Colors.white,
                 color: showAvg
                     ? Colors.deepOrange.withOpacity(0.5)
                     : Colors.deepOrange,
@@ -90,14 +116,13 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     // Desc: 날짜 가져오기
     for (int i = 0; i < widget.listChart.length; i++) {
       if (value.toInt() == i) {
-        
         text = Text(
           // orderby date로 가져오지 못할때 사용하기 ***
           widget.listChart[i]['dateValue'].toString().replaceFirst('-', '\n'),
 
           // orderby date로 가져올때 사용 ***
           // widget.listChart[widget.listChart.length - i - 1]['dateValue'].toString().replaceFirst('-', '\n'),
-          
+
           style: style,
         );
       }
@@ -241,10 +266,10 @@ class _LineChartWidgetState extends State<LineChartWidget> {
               FlSpot(
                   i.toDouble(),
                   // orderby date로 가져오지 못할때 사용하기 ***
-                  double.parse(listChart[i]['resultValue'].toString())/10),
+                  double.parse(listChart[i]['resultValue'].toString()) / 10),
 
-                  // orderby date로 가져올때 사용하기 ***
-                  // double.parse(listChart[listChart.length - i - 1]['resultValue'].toString())/10),
+              // orderby date로 가져올때 사용하기 ***
+              // double.parse(listChart[listChart.length - i - 1]['resultValue'].toString())/10),
             ],
             // FlSpot(3, 3),
           ],
@@ -252,7 +277,9 @@ class _LineChartWidgetState extends State<LineChartWidget> {
           // gradient: LinearGradient(colors: gradientColors),
           barWidth: 4,
           isStrokeCapRound: true,
-          dotData: FlDotData(show: true), // 점 보여주기
+          dotData: FlDotData(
+            show: true,
+          ), // 점 보여주기
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(
@@ -276,7 +303,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     double avgResult = 0;
     for (int i = 0; i < listChart.length; i++) {
       sumResult = sumResult +
-          (double.parse(listChart[i]['resultValue'].toString())/10);
+          (double.parse(listChart[i]['resultValue'].toString()) / 10);
     }
     avgResult = sumResult / listChart.length;
 

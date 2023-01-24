@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_oh_app/components/custom_app_bar.dart';
 import 'package:dr_oh_app/components/line_chart_widget.dart';
-import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,45 +33,121 @@ class _BmiChartRecordState extends State<BmiChartRecord> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
-          child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  // >>>1st Try<<
-                  .collection('result')
-                  .where('category', isEqualTo: "BMI")
-                  .where('userid', isEqualTo: id)
-                  // .orderBy('date', descending: true) // 최신 10개 를 위해서 dsc으로 가져오기
-                  .limit(10) // 10개만 가져오기
-                  .snapshots(includeMetadataChanges: true),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      // >>>1st Try<<
+                      .collection('result')
+                      .where('category', isEqualTo: "BMI")
+                      .where('userid', isEqualTo: id)
+                      // .orderBy('date', descending: true) // 최신 10개 를 위해서 dsc으로 가져오기
+                      .limit(10) // 10개만 가져오기
+                      .snapshots(includeMetadataChanges: true),
 
-              // >>>2st Try<<<
-              // .collection('users').doc().collection('dimentia_p')
-              // .where('id', isEqualTo: id)
-              // // .where('category', isEqualTo: '뇌졸중')
-              // // .orderBy('date', descending: false)
-              // .limit(10)
-              // .snapshots(includeMetadataChanges: true),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasError) {
-                  return const Text('Error');
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Text('Loading');
-                }
-                if (snapshot.data == null) {
-                  return const Text('Empty');
-                }
-                List listChart = snapshot.data!.docs.map((e) {
-                  return {
-                    'dateValue': e['date'],
-                    'resultValue': e['result'],
-                  };
-                }).toList();
+                  // >>>2st Try<<<
+                  // .collection('users').doc().collection('dimentia_p')
+                  // .where('id', isEqualTo: id)
+                  // // .where('category', isEqualTo: '뇌졸중')
+                  // // .orderBy('date', descending: false)
+                  // .limit(10)
+                  // .snapshots(includeMetadataChanges: true),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasError) {
+                      return const Text('Error');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Text('Loading');
+                    }
+                    if (snapshot.data == null) {
+                      return const Text('Empty');
+                    }
+                    List listChart = snapshot.data!.docs.map((e) {
+                      return {
+                        'dateValue': e['date'],
+                        'resultValue': e['result'],
+                      };
+                    }).toList();
 
-                return LineChartWidget(id: id, listChart: listChart);
-              }),
+                    return LineChartWidget(
+                      id: id,
+                      listChart: listChart,
+                      title: 'BMI 결과 일별 차트',
+                    );
+                  }),
+              Container(
+                height: 260,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    style: BorderStyle.none,
+                    width: 0.5,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                // decoration: BoxDecoration(
+                //   borderRadius: BorderRadius.circular(12),
+                // ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'BMI 수치별 분류',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'images/underweight_male.png',
+                          height: 118,
+                        ),
+                        Image.asset(
+                          'images/underweight_female.png',
+                          height: 118,
+                        ),
+                        Image.asset(
+                          'images/normalweight_male.png',
+                          height: 118,
+                        ),
+                        Image.asset(
+                          'images/normalweight_female.png',
+                          height: 118,
+                        ),
+                        Image.asset(
+                          'images/obesity_male.png',
+                          height: 118,
+                        ),
+                        Image.asset(
+                          'images/obesity_female.png',
+                          height: 118,
+                        ),
+                        Image.asset(
+                          'images/extremeobesity_male.png',
+                          height: 118,
+                        ),
+                        Image.asset(
+                          'images/extremeobesity_female.png',
+                          height: 118,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Image.asset('images/bmi_list.png'),
+                  ],
+                ),
+              ),
+              // const SizedBox(height: 8),
+            ],
+          ),
         ),
       ),
     );

@@ -1,5 +1,4 @@
 import 'package:dr_oh_app/components/custom_app_bar.dart';
-import 'package:dr_oh_app/components/logout_btn.dart';
 import 'package:dr_oh_app/repository/localdata/user_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -37,95 +36,110 @@ class _BodyInfoState extends State<BodyInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(appBar: AppBar(), title: '신체정보 입력'),
-      // appBar: AppBar(
-      //   title: const Text('신체정보 입력'),
-      //   elevation: 1,
-      //   actions: const [LogoutBtn()],
-      // ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              children: const [
-                Text(
-                  '신체정보 입력',
-                  style: TextStyle(
-                    fontSize: 40,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 100,
-            ),
-            Column(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 100, right: 100),
-                  child: TextField(
-                    controller: heightController,
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration(
-                      hintText: '키(cm)',
-                      labelText: correctheight ? '' : '키를 입력하세요',
+                Column(
+                  children: const [
+                    SizedBox(
+                      height: 20,
                     ),
-                    onChanged: (value) {
-                      if (value.isNotEmpty) {
-                        setState(() {
-                          correctheight = true;
-                        });
-                      } else {
-                        setState(() {
-                          correctheight = false;
-                        });
-                      }
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 100, right: 100),
-                  child: TextField(
-                    controller: weightController,
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration(
-                      hintText: '몸무게(kg)',
-                      labelText: correctweight ? '' : '몸무게를 입력하세요',
+                    Text(
+                      '신체정보 입력',
+                      style: TextStyle(
+                        fontSize: 40,
+                      ),
                     ),
-                    onChanged: (value) {
-                      if (value.isNotEmpty) {
-                        setState(() {
-                          correctweight = true;
-                        });
-                      } else {
-                        setState(() {
-                          correctweight = false;
-                        });
-                      }
-                    },
-                  ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 100,
-                ),
-                ElevatedButton(
-                    onPressed: correctheight && correctweight
-                        ? () {
-                            UserRepository usrr = UserRepository();
-                            usrr.addAction(heightController.text.trim(),
-                                weightController.text.trim());
-                            _showDialog(context);
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 100, right: 100),
+                      child: TextField(
+                        controller: heightController,
+                        keyboardType:
+                            const TextInputType.numberWithOptions(decimal: true),
+                        decoration: InputDecoration(
+                          hintText: '키(cm)',
+                          labelText: correctheight ? '' : '키를 입력하세요',
+                        ),
+                        onChanged: (value) {
+                          if (value.isNotEmpty) {
+                            setState(() {
+                              correctheight = true;
+                            });
+                          } else {
+                            setState(() {
+                              correctheight = false;
+                            });
                           }
-                        : null,
-                    child: const Text('저장'))
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 100, right: 100),
+                      child: TextField(
+                        controller: weightController,
+                        keyboardType:
+                            const TextInputType.numberWithOptions(decimal: true),
+                        decoration: InputDecoration(
+                          hintText: '몸무게(kg)',
+                          labelText: correctweight ? '' : '몸무게를 입력하세요',
+                        ),
+                        onChanged: (value) {
+                          if (value.isNotEmpty) {
+                            setState(() {
+                              correctweight = true;
+                            });
+                          } else {
+                            setState(() {
+                              correctweight = false;
+                            });
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: 80,
+                      child: ElevatedButton(
+                        onPressed: correctheight && correctweight
+                            ? () {
+                                UserRepository usrr = UserRepository();
+                                usrr.addAction(heightController.text.trim(),
+                                    weightController.text.trim());
+                                _showDialog(context);
+                              }
+                            : null,
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24))),
+                        child: const Text(
+                          '저장',
+                          style: TextStyle(
+                            fontSize: 28,
+                            // fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16)
+                  ],
+                ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

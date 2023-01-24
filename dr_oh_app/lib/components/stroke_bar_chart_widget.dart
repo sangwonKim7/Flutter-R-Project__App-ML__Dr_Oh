@@ -15,11 +15,11 @@ class StrokeBarChartWidgetState extends State<StrokeBarChartWidget> {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 1.3,
+      aspectRatio: 1.1,
       child: Card(
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        color: Theme.of(context).primaryColor.withOpacity(0.5),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        color: Theme.of(context).primaryColorLight,
         child: const _BarChart(),
       ),
     );
@@ -114,7 +114,7 @@ class _BarChart extends StatelessWidget {
     }
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 4,
+      space: 8,
       child: Text(text, style: style),
     );
   }

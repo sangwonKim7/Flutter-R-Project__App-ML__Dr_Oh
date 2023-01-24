@@ -261,7 +261,6 @@ class _EditMemberInfoState extends State<EditMemberInfo> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _initSharedPreferences();
     idController.text = widget.user.id.toString();

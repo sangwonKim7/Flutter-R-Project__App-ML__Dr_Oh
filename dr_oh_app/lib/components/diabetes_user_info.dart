@@ -43,105 +43,99 @@ class _DUserInfoState extends State<DUserInfo> {
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                const Text(
-                  '신체 정보 입력',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              const Text(
+                '신체 정보 입력',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 120,
+              ),
+              SizedBox(
+                width: 160,
+                child: TextField(
+                  controller: ageCont,
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                  onChanged: (value) {
+                    if (ageReg.hasMatch(value) && int.parse(value) <= curyear) {
+                      setState(() {
+                        correctYear = true;
+                      });
+                    } else {
+                      setState(() {
+                        correctYear = false;
+                      });
+                    }
+                  },
+                  decoration: InputDecoration(
+                    labelText: ageCont.text.trim().isEmpty
+                        ? '출생년도 4자리'
+                        : correctYear
+                            ? '출생년도'
+                            : '출생년도를 정확히 입력하세요.',
                   ),
                 ),
-                const SizedBox(
-                  height: 100,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 100,
-                    child: TextField(
-                      controller: ageCont,
-                      keyboardType: TextInputType.number,
-                      onChanged: (value) {
-                        if (ageReg.hasMatch(value) &&
-                            int.parse(value) <= curyear) {
-                          setState(() {
-                            correctYear = true;
-                          });
-                        } else {
-                          setState(() {
-                            correctYear = false;
-                          });
-                        }
-                      },
-                      decoration: InputDecoration(
-                        labelText: ageCont.text.trim().isEmpty
-                            ? '출생년도 4자리'
-                            : correctYear
-                                ? ''
-                                : '출생년도를 정확히 입력하세요.',
-                      ),
-                    ),
+              ),
+              SizedBox(
+                width: 160,
+                child: TextField(
+                  controller: heightCont,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 100,
-                    child: TextField(
-                      controller: heightCont,
-                      keyboardType: const TextInputType.numberWithOptions(
-                        decimal: true,
-                      ),
-                      decoration: const InputDecoration(
-                        labelText: '키(cm)',
-                      ),
-                      onChanged: (value) {
-                        if (value.isEmpty) {
-                          setState(() {
-                            correctHeight = false;
-                          });
-                        } else {
-                          setState(() {
-                            correctHeight = true;
-                          });
-                        }
-                      },
-                    ),
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                    labelText: '키(cm)',
                   ),
+                  onChanged: (value) {
+                    if (value.isEmpty) {
+                      setState(() {
+                        correctHeight = false;
+                      });
+                    } else {
+                      setState(() {
+                        correctHeight = true;
+                      });
+                    }
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 100,
-                    child: TextField(
-                      controller: weightCont,
-                      keyboardType: const TextInputType.numberWithOptions(
-                        decimal: true,
-                      ),
-                      decoration: const InputDecoration(
-                        labelText: '몸무게(kg)',
-                      ),
-                      onChanged: (value) {
-                        if (value.isEmpty) {
-                          setState(() {
-                            correctWeight = false;
-                          });
-                        } else {
-                          setState(() {
-                            correctWeight = true;
-                          });
-                        }
-                      },
-                    ),
+              ),
+              SizedBox(
+                width: 160,
+                child: TextField(
+                  controller: weightCont,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
                   ),
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                    labelText: '몸무게(kg)',
+                  ),
+                  onChanged: (value) {
+                    if (value.isEmpty) {
+                      setState(() {
+                        correctWeight = false;
+                      });
+                    } else {
+                      setState(() {
+                        correctWeight = true;
+                      });
+                    }
+                  },
                 ),
-                const SizedBox(
-                  height: 100,
-                ),
-                ElevatedButton(
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              SizedBox(
+                height: 48,
+                child: OutlinedButton(
                   onPressed: () async {
                     final prefs = await SharedPreferences.getInstance();
                     String id = (prefs.getString('id') ?? "");
@@ -157,52 +151,69 @@ class _DUserInfoState extends State<DUserInfo> {
                                 weight: docs1.docs.first.data()['weight'],
                               )
                             : BodyInfoModel(id: '', height: '', weight: '');
-                    final userage=docs1.docs.first.data()['birthdate'].toString().substring(0,4);
+                    final userage = docs1.docs.first
+                        .data()['birthdate']
+                        .toString()
+                        .substring(0, 4);
                     if (bodyinfo.height.toString().isNotEmpty) {
                       heightCont.text = bodyinfo.height.toString();
                       weightCont.text = bodyinfo.weight.toString();
                       setState(() {
-                        correctHeight=true;
-                        correctWeight=true;
+                        correctHeight = true;
+                        correctWeight = true;
                       });
                     }
-                    ageCont.text=userage;
+                    ageCont.text = userage;
                     setState(() {
-                      correctYear=true;
+                      correctYear = true;
                     });
                   },
                   child: const Text(
                     '내 정보 가져오기',
+                    style: TextStyle(fontSize: 24),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: ElevatedButton(
-                    onPressed: correctYear && correctHeight && correctWeight
-                        ? () {
-                            //if로 한번 더 감싸기(개인정보보호법 둘 다 클릭 완료 시 넘어감)
-                            if (widget.pageCont.hasClients) {
-                              DiabetesMessage.age =
-                                  curyear - int.parse(ageCont.text.trim());
-                              DiabetesMessage.height =
-                                  double.parse(heightCont.text.trim());
-                              DiabetesMessage.weight =
-                                  double.parse(weightCont.text.trim());
-                              widget.pageCont.animateToPage(
-                                2,
-                                duration: const Duration(milliseconds: 400),
-                                curve: Curves.easeInOut,
-                              );
-                            }
+              ),
+              const SizedBox(
+                height: 140,
+              ),
+              SizedBox(
+                height: 60,
+                child: ElevatedButton(
+                  onPressed: correctYear && correctHeight && correctWeight
+                      ? () {
+                          //if로 한번 더 감싸기(개인정보보호법 둘 다 클릭 완료 시 넘어감)
+                          if (widget.pageCont.hasClients) {
+                            DiabetesMessage.age =
+                                curyear - int.parse(ageCont.text.trim());
+                            DiabetesMessage.height =
+                                double.parse(heightCont.text.trim());
+                            DiabetesMessage.weight =
+                                double.parse(weightCont.text.trim());
+                            widget.pageCont.animateToPage(
+                              2,
+                              duration: const Duration(milliseconds: 400),
+                              curve: Curves.easeInOut,
+                            );
                           }
-                        : null,
-                    child: const Text(
-                      '다음',
-                    ),
+                        }
+                      : null,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        '다음',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

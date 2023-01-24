@@ -32,7 +32,7 @@ class Survey extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: () => Get.to(StrokeSurveyPage(surveyName: '뇌졸중 진단')),
+                  onTap: () => Get.to(StrokeSurveyPage()),
                   child: const CircleAvatar(
                     backgroundImage: AssetImage('images/stroke2.png'),
                     radius: 88,
