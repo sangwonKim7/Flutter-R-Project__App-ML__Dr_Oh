@@ -8,6 +8,7 @@ import 'package:dr_oh_app/model/news_model.dart';
 import 'package:dr_oh_app/view/home/all_checkup_history.dart';
 import 'package:dr_oh_app/view/home/body_info.dart';
 import 'package:dr_oh_app/view/home/checkup_history.dart';
+import 'package:dr_oh_app/view/information/info_bmi_calc.dart';
 import 'package:dr_oh_app/view/survey/dementia_survey.dart';
 import 'package:dr_oh_app/view/survey/diabetes_survey_page.dart';
 import 'package:dr_oh_app/viewmodel/checkup_history_view_model.dart';
@@ -23,6 +24,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // Date: 2023-01-26, SangwonKim
+  // Desc: 현재 기기 크기 확인. 반응형을 위한
+  late final double currentWidth = MediaQuery.of(context).size.width;
+  late final double currentHeight = MediaQuery.of(context).size.width;
   //** News API
   List<NewsModel> news = [];
   bool isLoading = true;
@@ -71,7 +76,7 @@ class _HomeState extends State<Home> {
                 decoration: _borderBox(),
                 width: double.infinity,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(4, 8, 4, 8),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -122,13 +127,31 @@ class _HomeState extends State<Home> {
                           GestureDetector(
                               onTap: () => Get.to(
                                   DiabetesSurveyPage(surveyName: '당뇨병 진단')),
-                              child: Image.asset('images/diabetes.png')),
+                              child: Image.asset(
+                                'images/diabetes.png',
+                                width: currentWidth / 4.5,
+                              )),
+                          const SizedBox(width: 2),
                           GestureDetector(
                               onTap: () => Get.to(const StrokePrivacy()),
-                              child: Image.asset('images/stroke.png')),
+                              child: Image.asset(
+                                'images/stroke.png',
+                                width: currentWidth / 4.5,
+                              )),
+                          const SizedBox(width: 2),
                           GestureDetector(
                               onTap: () => Get.to(DementiaSurvey()),
-                              child: Image.asset('images/dementia.png')),
+                              child: Image.asset(
+                                'images/dementia.png',
+                                width: currentWidth / 4.5,
+                              )),
+                          const SizedBox(width: 2),
+                          GestureDetector(
+                              onTap: () => Get.to(const InfoBmiCalc()),
+                              child: Image.asset(
+                                'images/bmi.png',
+                                width: currentWidth / 4.5,
+                              )),
                         ],
                       ),
                       const SizedBox(
@@ -228,7 +251,7 @@ class _HomeState extends State<Home> {
               Container(
                 decoration: _borderBox(),
                 width: double.infinity,
-                height: 270,
+                height: 290,
                 child: _calendar(),
               ),
             ],
@@ -249,7 +272,7 @@ class _HomeState extends State<Home> {
       children: [
         SizedBox(
           // width: 360,
-          height: 220,
+          height: 240,
           child: CalendarDatePicker(
             initialDate: selectedDate,
             firstDate: DateTime(2000),

@@ -1,6 +1,5 @@
-import 'package:dr_oh_app/app.dart';
 import 'package:dr_oh_app/components/custom_app_bar.dart';
-import 'package:dr_oh_app/components/logout_btn.dart';
+import 'package:dr_oh_app/custom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -154,7 +153,7 @@ class _StrokeResultPageState extends State<StrokeResultPage> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.off(const App());
+                    Get.off(const CustomNavBar());
                   },
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

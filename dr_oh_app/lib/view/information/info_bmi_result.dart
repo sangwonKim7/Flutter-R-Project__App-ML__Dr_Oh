@@ -1,5 +1,5 @@
 import 'package:dr_oh_app/components/custom_app_bar.dart';
-import 'package:dr_oh_app/components/logout_btn.dart';
+import 'package:dr_oh_app/custom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -68,14 +68,37 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               Text(
                 BmiMessage.bmiResultContent.toString(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                     fontSize: 16, fontWeight: FontWeight.bold, height: 1.5),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 60,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.off(const CustomNavBar());
+                  },
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        '처음으로',
+                        style: TextStyle(
+                          fontSize: 28,
+                          // fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -83,5 +106,4 @@ class _InfoBmiResultState extends State<InfoBmiResult> {
       ),
     );
   }
-
 } // End

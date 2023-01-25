@@ -117,11 +117,10 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     for (int i = 0; i < widget.listChart.length; i++) {
       if (value.toInt() == i) {
         text = Text(
-          // orderby date로 가져오지 못할때 사용하기 ***
-          widget.listChart[i]['dateValue'].toString().replaceFirst('-', '\n'),
-
           // orderby date로 가져올때 사용 ***
-          // widget.listChart[widget.listChart.length - i - 1]['dateValue'].toString().replaceFirst('-', '\n'),
+          widget.listChart[widget.listChart.length - i - 1]['dateValue']
+              .toString()
+              .replaceFirst('-', '\n'),
 
           style: style,
         );
@@ -164,34 +163,34 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       case 0:
         text = '0';
         break;
-      case 1:
+      case 10:
         text = '10';
         break;
-      case 2:
+      case 20:
         text = '20';
         break;
-      case 3:
+      case 30:
         text = '30';
         break;
-      case 4:
+      case 40:
         text = '40';
         break;
-      case 5:
+      case 50:
         text = '50';
         break;
-      case 6:
+      case 60:
         text = '60';
         break;
-      case 7:
+      case 70:
         text = '70';
         break;
-      case 8:
+      case 80:
         text = '80';
         break;
-      case 9:
+      case 90:
         text = '90';
         break;
-      case 10:
+      case 100:
         text = '100';
         break;
       default:
@@ -208,7 +207,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       gridData: FlGridData(
         show: true,
         drawVerticalLine: true,
-        horizontalInterval: 1,
+        horizontalInterval: 10,
         verticalInterval: 1,
         getDrawingHorizontalLine: (value) {
           return FlLine(
@@ -257,7 +256,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       maxX: 9,
       // Y축 min, max
       minY: 0,
-      maxY: 10,
+      maxY: 100,
       lineBarsData: [
         LineChartBarData(
           // ******* (x,y)의 좌표 설정하기 *******
@@ -265,11 +264,11 @@ class _LineChartWidgetState extends State<LineChartWidget> {
             for (int i = 0; i < listChart.length; i++) ...[
               FlSpot(
                   i.toDouble(),
-                  // orderby date로 가져오지 못할때 사용하기 ***
-                  double.parse(listChart[i]['resultValue'].toString()) / 10),
-
-              // orderby date로 가져올때 사용하기 ***
-              // double.parse(listChart[listChart.length - i - 1]['resultValue'].toString())/10),
+                  // orderby date로 가져올때 사용하기 ***
+                  double.parse(double.parse(listChart[listChart.length - i - 1]
+                              ['resultValue']
+                          .toString())
+                      .toStringAsFixed(2))),
             ],
             // FlSpot(3, 3),
           ],
@@ -302,8 +301,8 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     double sumResult = 0;
     double avgResult = 0;
     for (int i = 0; i < listChart.length; i++) {
-      sumResult = sumResult +
-          (double.parse(listChart[i]['resultValue'].toString()) / 10);
+      sumResult =
+          sumResult + (double.parse(listChart[i]['resultValue'].toString()));
     }
     avgResult = sumResult / listChart.length;
 
@@ -313,7 +312,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         show: true,
         drawHorizontalLine: true,
         verticalInterval: 1,
-        horizontalInterval: 1,
+        horizontalInterval: 10,
         getDrawingVerticalLine: (value) {
           return FlLine(
             color: const Color(0xff37434d),
@@ -359,7 +358,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       minX: 0,
       maxX: 9,
       minY: 0,
-      maxY: 10,
+      maxY: 100,
       lineBarsData: [
         LineChartBarData(
           spots: [
