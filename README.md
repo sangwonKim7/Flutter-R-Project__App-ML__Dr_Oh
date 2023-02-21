@@ -1,16 +1,7 @@
-# dr_oh_app
+## R(데이터 분석, ML) + Flutter 를 활용한 App Project
 
-A new Flutter project.
+- Dr. Oh: 뇌졸중, 당뇨병, 치매 예측 App
+- 예측 진단 기록들을 차트로 확인할 수 있습니다.
+- 기타: BMI, 로그인, 마이페이지, 지도 등
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+/copyrighted by sangwonKim7
