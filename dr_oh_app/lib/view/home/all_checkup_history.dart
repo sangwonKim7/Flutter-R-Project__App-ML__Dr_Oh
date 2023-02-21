@@ -40,12 +40,16 @@ class _ListBodyState extends State<ListBody> {
       appBar: CustomAppBar(appBar: AppBar(), title: '전체 검진기록 조회'),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
-              .collection('result')
+              // .collection('result')
               // .orderBy('date', descending: false)
+              // .where('userid', isEqualTo: id)
+              // // .where('date', isEqualTo: widget.selectedDate.toString().substring(0, 10))
+              // .snapshots(),
+              .collection('result')
+              .where('category')
               .where('userid', isEqualTo: id)
-              // .where('date',
-              //     isEqualTo: widget.selectedDate.toString().substring(0, 10))
-              .snapshots(),
+              .orderBy('date', descending: true) 
+              .snapshots(includeMetadataChanges: true),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
